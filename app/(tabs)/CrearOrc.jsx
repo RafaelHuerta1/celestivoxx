@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import { View, Text, Button, TouchableOpacity, TextInput } from "react-native";
+import { creatOrc } from "../logica/index.js";
+
 
 const CrearOrc = () => {
 
@@ -12,6 +14,15 @@ const CrearOrc = () => {
         setIntencion('');
         setNombre('');
     }
+
+
+    const creatOrc = (nombre) => {
+        console.log('Crear Oración');
+    }
+
+    setTimeout(() => {
+        creatOrc(nombre);
+    }, 3000);
 
 
     console.log(nombre);
@@ -55,7 +66,7 @@ const CrearOrc = () => {
                 
                     
                     >
-                        Ora de manera personalizada para tus seres queridos y comparte la en tus redes sociales.
+                        Ora de manera personalizada para tus seres queridos y comparte  en tus redes sociales.
                     </Text>
             </View>
            
@@ -84,6 +95,8 @@ const CrearOrc = () => {
                 />
 
                 <TextInput
+                onChangeText={(intencion) => setIntencion(intencion)}
+                value={intencion}
                     style={{
                         height: 'auto',
                         width: 300,

@@ -1,13 +1,15 @@
-import React, {useState} from "react";
-import { View, Text, Button, TouchableOpacity, TextInput } from "react-native";
-import { creatOrc } from "../logica/index.js";
-
+import React, {useState , useEffect} from "react";
+import { View, Text, Button, TouchableOpacity, TextInput, StyleSheet } from "react-native";
+//import { creatOrc } from "../logica/index.js";
+import { Modal } from "react-native-web";
 
 const CrearOrc = () => {
 
 
     const [nombre, setNombre] = useState('');
     const [intencion, setIntencion] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [txtModal, setTxtModal] = useState('');
 
 
     const limpiarOracion = () => {
@@ -16,16 +18,19 @@ const CrearOrc = () => {
     }
 
 
-    const creatOrc = (nombre) => {
-        console.log('Crear Oración');
-    }
 
-    setTimeout(() => {
-        creatOrc(nombre);
-    }, 3000);
+   const creatOrc =   () => {
 
 
-    console.log(nombre);
+        if (nombre === '' || intencion === '') {
+          
+            setModalVisible(true);
+            setTxtModal('Por favor ingresa un nombre e intención');
+        }
+        
+   }
+
+
 
     return (
         <View>
@@ -112,6 +117,8 @@ const CrearOrc = () => {
                 />
 
                 <TouchableOpacity
+                onPress={creatOrc}
+
                 style={{
                     backgroundColor: '#841584',
                     width: 300,
@@ -159,9 +166,63 @@ const CrearOrc = () => {
             
             </View>
 
+            <View style={styles.containerModal} >
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+            }}>
+
+                    <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                    }}
+                    >
+                        <View
+                        style={{
+                            backgroundColor: 'white',
+                            width: '80%',
+                            height: '40%',
+                            borderRadius: 20,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                        >
+                            <Text
+                            style={{
+                                fontSize: 20,
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                            }}
+                            >
+                                { txtModal }
+                            </Text>
+                        </View>
+                        </View>
+                </Modal>
+            </View>
+
         </View>
     );
     
 }
 
 export default CrearOrc;    
+
+
+const styles = StyleSheet.create({
+    containerModal: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 22,
+
+    },
+   
+});

@@ -23,51 +23,20 @@ const CrearOrc = () => {
 
 
 
-  const [nombre, setNombre] = useState("");
+  const [nombre, setNombre] = useState([]);
   const [intencion, setIntencion] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [txtModal, setTxtModal] = useState("");
   const [txtBtn, setTxtBtn] = useState("Cerrar");
-  const [oracion, setOracion] = useState("");
-  const [categoriasOrc, setCategoriasOrc] = useState();
+  const [oracion, setOracion] = useState([]);
+  const [categoriasOrc, setCategoriasOrc] = useState( [] );
   const [fcBtnModal, setFcBtnModal] = useState(() => () => console.log("Modal cerrado por defecto"));
 
   const limpiarOracion = () => {
     setIntencion("");
     setNombre("");
   };
-  /*
-  const plantillaOracion = (nombre, intencion) => {
-    setOracion(
-      `Esta oracion es para: ${nombre} \n Pedimos por su situacion: ${intencion}`
-    );
-  };
-  */
 
-  const creatOrc = () => {
-    if (nombre === "" ) {
-      setModalVisible(true);
-      setTxtModal("Por favor ingresa un nombre e intención");
-    } else {
-      setModalVisible(true);
-      setTxtModal("Estamos creando tu oración ;)");
-
-      setTimeout(() => {
-        setModalVisible(true);
-        setTxtModal("Oracion Creada...");
-        setTxtBtn("Ir a Mis Oraciones");
-        setFcBtnModal(() => {
-          console.log("navegar a mis oraciones");
-          setModalVisible(false);
-          setOracion(`Esta oracion es para: ${nombre} \n Pedimos por su situacion: ${intencion}`);
-          router.push("MisOraciones", { nombre, oracion });
-        });
-        // plantillaOracion(nombre, intencion); 
-        // navegar a mis oraciones con la props nombre , intecion y oracion
-      }, 3000);
-      // hacer la llamada a la api de gpt-3
-    }
-  };
 
   const cerrarModal = () => {
     
@@ -81,10 +50,53 @@ const CrearOrc = () => {
     "Agradecimiento": "Agradecimiento",
  */
 
+
+    // revisar la logica,
+    const creatOrc = () => {
+      if (nombre === "" ) {
+        setModalVisible(true);
+        setTxtModal("Por favor ingresa un nombre e intención");
+      } else {
+        setModalVisible(true);
+        setTxtModal("Estamos creando tu oración ;)");
+  
+        setTimeout(() => {
+          setModalVisible(true);
+          setTxtModal("Oracion Creada...");
+         
+          setTxtBtn("Ir a Mis Oraciones");
+  
+          setFcBtnModal(() => {
+            console.log("navegar a mis oraciones");
+            setModalVisible(false);
+            console.log(nombre, oracion, categoriasOrc);
+            router.push({ pathname: "MisOraciones", params: { nombre: nombre, oracion: oracion , categoriasOrc: categoriasOrc} });
+          });
+          // plantillaOracion(nombre, intencion); 
+          // navegar a mis oraciones con la props nombre , intecion y oracion
+        }, 4000);
+        // hacer la llamada a la api de gpt-3
+      }
+    };
+
     useEffect(() => {
       console.log(categoriasOrc);
       setFcBtnModal(() => cerrarModal);
-    }, []);
+      const plantillaOracion = (nombre, categoriasOrc) => {
+        console.log('Categorias:', categoriasOrc)
+        const oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
+        Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
+        Que tu luz ilumine su camino y que tu paz llene su corazón.
+        Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+    
+       setOracion(
+        ...oracion,
+          oracionTxt
+      
+       );
+      };
+      plantillaOracion(nombre, categoriasOrc);
+    }, [nombre]);
 
   const categorias = [
     { label: "Enfermos", value: "enfermos" },

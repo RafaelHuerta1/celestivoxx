@@ -17,7 +17,7 @@ const App = () => {
             fontSize: 25,
             fontWeight: 'regular',
             textAlign: 'center',
-            marginTop: 50,
+            marginTop: 30,
             width: '90%', 
             marginLeft: '5%',
             marginRight: '5%',
@@ -57,8 +57,8 @@ const App = () => {
         
         >
 
-
         <Link href="/CrearOrc" asChild>
+        
         <TouchableOpacity
         style={{
             backgroundColor: '#03045E',

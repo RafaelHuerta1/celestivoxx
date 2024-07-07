@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React , {useEffect, useState} from "react";
 import { View, Text, Image, TouchableOpacity, Button , StyleSheet} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 
@@ -6,27 +6,29 @@ import { useLocalSearchParams } from "expo-router";
 const MisOraciones = () => { 
 
     const [misOraciones , setMisOraciones] = useState([]);
-    const { nombre, oracion  } = useLocalSearchParams();
-    console.log(nombre, oracion);
+    const { nombre , oracion, categorias} = useLocalSearchParams();
+    console.log('NOMBRE:',nombre);
+    console.log('ORACION:',oracion);
+    console.log('CATEGORIAS:',categorias);
 
 
+    if(nombre && oracion && categorias){
+        setMisOraciones([
+            ...misOraciones,
+            {
+                nombre,
+                oracion,
+                categorias,
+            },
+        ]);
+
+        console.log('Mis Oraciones:', misOraciones);
+    }
  
-     const createCard = () => {
-        <View style={styles.containerMain}>
-                    <Text style={styles.txtStyle}> ESTA ORACION ES PARA: {nombre} </Text>
-                    <Text style={styles.txtParrafo}> Pedimos por su situacion : {intencion} </Text>
-                    <View
-                    style={{
-                            marginVertical: 10,
-                        flexDirection: "row",
-                    }}
-                    >
-                    <Text style={styles.txtParrafo} > Ver Oracion</Text>
-                    <Text style={styles.txtParrafo1} >Crear Reto</Text>
-                    </View>
-        </View>
-     }
     
+
+
+
         return (
             <View
              style={{
@@ -36,13 +38,23 @@ const MisOraciones = () => {
                 }}
             >
 
-            <Text style={styles.txtStyle}> Mis Oraciones </Text>
-            {
-                misOraciones.map((oracion) => {
-                    return createCard(oracion.nombre, oracion.intencion);
-                })
-            }
-            
+                
+                {
+                    misOraciones.map((oracion, index) => {
+                        return (
+                            <View
+                                key={index}
+                                style={styles.containerMain}
+                            >
+                                <Text style={styles.txtStyle}> {oracion.nombre} </Text>
+                                <Text style={styles.txtParrafo}> {oracion.oracion} </Text>
+                                <Text style={styles.txtParrafo1}> {oracion.categorias} </Text>
+                            </View>
+                        );
+                     
+                    })
+                }
+
             </View>
         );  
 
@@ -54,32 +66,25 @@ export default MisOraciones;
 
 const styles = StyleSheet.create({
     containerMain: {
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20,
-        borderRadius: 13,
-        marginTop: 22,
-        borderBlockColor: "black",
-        borderBlockWidth: 1,
-        backgroundColor: "white",
-        width: 400,
-        
+        backgroundColor: '#0077B6',
+        width: '80%',
+        height: 150,
+        borderRadius: 20,
+        marginTop: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     txtStyle: {
-        color: "black",
-        fontWeight: "bold",
+        color: 'white',
+        fontWeight: 'bold',
         fontSize: 20,
-        marginVertical: 5,
     },
     txtParrafo: {
-        color: "black",
-        fontSize: 16,
-        marginVertical:5,
+        color: 'white',
+        fontSize: 15,
     },
     txtParrafo1: {
-        color: "black",
-        fontSize: 16,
-        marginVertical:5,
-        marginHorizontal: 20,
+        color: 'white',
+        fontSize: 15,
     },
   });

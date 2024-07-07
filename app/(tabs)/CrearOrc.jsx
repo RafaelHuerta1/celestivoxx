@@ -10,17 +10,27 @@ import {
 } from "react-native";
 //import { creatOrc } from "../logica/index.js";
 
+// templatte strings --  c`string text`
+
+import MisOraciones from "./MisOraciones.jsx";
 
 const CrearOrc = () => {
   const [nombre, setNombre] = useState("");
   const [intencion, setIntencion] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [txtModal, setTxtModal] = useState("");
-
+  const [txtBtn, setTxtBtn] = useState("Cerrar");
+  const [oracion, setOracion] = useState("");
   const limpiarOracion = () => {
     setIntencion("");
     setNombre("");
   };
+
+
+  const plantillaOracion = (nombre , intencion) => {
+    setOracion(`Esta oracion es para: ${nombre} \n Pedimos por su situacion: ${intencion}`);
+    
+  }
 
   const creatOrc = () => {
     if (nombre === "" || intencion === "") {
@@ -31,6 +41,14 @@ const CrearOrc = () => {
       setModalVisible(true);
       setTxtModal("Estamos creando tu oración ;)"); 
       
+      setTimeout(() => {
+        setModalVisible(true);
+        setTxtModal('Oracion Creada...');
+        setTxtBtn('Ir a Mis Oraciones');
+        plantillaOracion(nombre, intencion);
+            // navegar a mis oraciones con la props nombre , intecion y oracion
+            
+      }, 3000);
       // hacer la llamada a la api de gpt-3
        
     }
@@ -174,7 +192,7 @@ const CrearOrc = () => {
            <View style={styles.centeredView}>
           <View style={styles.modalInfoText}>
             <Text>{txtModal}</Text>
-            <Button title='Cerrar' onPress={cerrarModal} />
+            <Button title={txtBtn} onPress={cerrarModal} />
           </View>
         </View>
       

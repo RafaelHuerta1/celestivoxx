@@ -1,15 +1,15 @@
 import React , {useState} from "react";
 import { View, Text, Image, TouchableOpacity, Button , StyleSheet} from "react-native";
+import { useLocalSearchParams } from "expo-router";
 
 
-const MisOraciones = (nombre , intencion) => { 
+const MisOraciones = () => { 
 
     const [misOraciones , setMisOraciones] = useState([]);
+    const { nombre, oracion  } = useLocalSearchParams();
+    console.log(nombre, oracion);
 
 
-     if(!nombre === "" || !intencion === ""){
-        setMisOraciones([...misOraciones, {nombre, intencion}]);
-    }
  
      const createCard = () => {
         <View style={styles.containerMain}>

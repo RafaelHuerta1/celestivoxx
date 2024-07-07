@@ -13,51 +13,88 @@ import {
 // templatte strings --  c`string text`
 
 import MisOraciones from "./MisOraciones.jsx";
+import { Picker } from "@react-native-picker/picker";
+import { router } from "expo-router";
 
 const CrearOrc = () => {
+
+
+
+
+
+
   const [nombre, setNombre] = useState("");
   const [intencion, setIntencion] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [txtModal, setTxtModal] = useState("");
   const [txtBtn, setTxtBtn] = useState("Cerrar");
   const [oracion, setOracion] = useState("");
+  const [categoriasOrc, setCategoriasOrc] = useState();
+  const [fcBtnModal, setFcBtnModal] = useState(() => () => console.log("Modal cerrado por defecto"));
+
   const limpiarOracion = () => {
     setIntencion("");
     setNombre("");
   };
-
-
-  const plantillaOracion = (nombre , intencion) => {
-    setOracion(`Esta oracion es para: ${nombre} \n Pedimos por su situacion: ${intencion}`);
-    
-  }
+  /*
+  const plantillaOracion = (nombre, intencion) => {
+    setOracion(
+      `Esta oracion es para: ${nombre} \n Pedimos por su situacion: ${intencion}`
+    );
+  };
+  */
 
   const creatOrc = () => {
-    if (nombre === "" || intencion === "") {
+    if (nombre === "" ) {
       setModalVisible(true);
       setTxtModal("Por favor ingresa un nombre e intención");
-    }
-    else{
+    } else {
       setModalVisible(true);
-      setTxtModal("Estamos creando tu oración ;)"); 
-      
+      setTxtModal("Estamos creando tu oración ;)");
+
       setTimeout(() => {
         setModalVisible(true);
-        setTxtModal('Oracion Creada...');
-        setTxtBtn('Ir a Mis Oraciones');
-        plantillaOracion(nombre, intencion);
-            // navegar a mis oraciones con la props nombre , intecion y oracion
-            
+        setTxtModal("Oracion Creada...");
+        setTxtBtn("Ir a Mis Oraciones");
+        setFcBtnModal(() => {
+          console.log("navegar a mis oraciones");
+          setModalVisible(false);
+          setOracion(`Esta oracion es para: ${nombre} \n Pedimos por su situacion: ${intencion}`);
+          router.push("MisOraciones", { nombre, oracion });
+        });
+        // plantillaOracion(nombre, intencion); 
+        // navegar a mis oraciones con la props nombre , intecion y oracion
       }, 3000);
       // hacer la llamada a la api de gpt-3
-       
     }
   };
 
   const cerrarModal = () => {
+    
     console.log("cerrar modal");
     setModalVisible(false);
   };
+/**
+ *     "Enfermos": "Enfermos",
+    "Difuntos": "Difuntos",
+    "Familia": "Familia",
+    "Agradecimiento": "Agradecimiento",
+ */
+
+    useEffect(() => {
+      console.log(categoriasOrc);
+      setFcBtnModal(() => cerrarModal);
+    }, []);
+
+  const categorias = [
+    { label: "Enfermos", value: "enfermos" },
+    { label: "Difuntos", value: "difuntos" },
+    { label: "Familia", value: "familia" },
+    { label: "Agradecimiento", value: "agradecimiento" },
+  ];
+   // { label: 'Padre Nuestro', value: 'padre nuestro' },
+    
+
 
   return (
     <View>
@@ -103,6 +140,17 @@ const CrearOrc = () => {
           marginTop: 80,
         }}
       >
+        <Text
+          style={{
+            marginBottom: 15,
+            textDecorationStyle: "solid",
+            textDecorationColor: "black",
+            fontSize: 20,
+            fontWeight: "400",
+          }}
+        >
+          Nombre de tu ser querido:
+        </Text>
         <TextInput
           onChangeText={(nombre) => setNombre(nombre)}
           value={nombre}
@@ -110,29 +158,43 @@ const CrearOrc = () => {
             height: "auto",
             width: 300,
             minHeight: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            borderRadius: 10,
+           borderBottomWidth: 1,
+            borderBottomColor: "black",
+
             textAlign: "center",
           }}
           placeholder="Nombre"
         />
+          <Text
+                  style={{
+                    marginBottom: 20,
+                    marginTop: 20,
+                    textDecorationStyle: "solid",
+                    textDecorationColor: "black",
+                    fontSize: 20,
+                    fontWeight: "400",
+                  }}
+                >
+                  Elje el tipo de oración:
+                </Text>
+                <Picker
+                selectedValue={categoriasOrc}
+                onValueChange={(itemValue) => setCategoriasOrc(itemValue)}
+                style={{
+                  marginTop: 0,
+                  width: '70%',
+                  height: 'auto',
+                  borderWidth: 2, // Grosor del borde
+                  borderColor: 'black', // Color del borde
+                  borderRadius: 10,
+                  backgroundColor: 'white', // Color de fondo
+                }}
+              >
 
-        <TextInput
-          onChangeText={(intencion) => setIntencion(intencion)}
-          value={intencion}
-          style={{
-            height: "auto",
-            width: 300,
-            minHeight: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            borderRadius: 10,
-            textAlign: "center",
-            marginTop: 10,
-          }}
-          placeholder="Intención"
-        />
+                            {categorias.map((option) => (
+                                <Picker.Item label={option.label} value={option.value} key={option.value} />
+                            ))}
+                        </Picker>
 
         <TouchableOpacity
           onPress={creatOrc}
@@ -179,25 +241,23 @@ const CrearOrc = () => {
         </TouchableOpacity>
       </View>
 
-            <View
-            //style={styles.containerModal}
-            >
-            <Modal
-            //style={styles.modalInfo}
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
+      <View
+      //style={styles.containerModal}
+      >
+        <Modal
+          //style={styles.modalInfo}
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
         >
-           
-           <View style={styles.centeredView}>
-          <View style={styles.modalInfoText}>
-            <Text>{txtModal}</Text>
-            <Button title={txtBtn} onPress={cerrarModal} />
-          </View>
-        </View>
-      
-            </Modal>
+          <View style={styles.centeredView}>
+            <View style={styles.modalInfoText}>
+              <Text>{txtModal}</Text>
+              <Button title={txtBtn} onPress={fcBtnModal} />
             </View>
+          </View>
+        </Modal>
+      </View>
     </View>
   );
 };

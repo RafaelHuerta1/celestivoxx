@@ -4,29 +4,33 @@ import { useLocalSearchParams } from "expo-router";
 
 
 const MisOraciones = () => { 
-
-    const [misOraciones , setMisOraciones] = useState([]);
-    const { nombre , oracion, categorias} = useLocalSearchParams();
-    console.log('NOMBRE:',nombre);
-    console.log('ORACION:',oracion);
-    console.log('CATEGORIAS:',categorias);
-
-
-    if(nombre && oracion && categorias){
-        setMisOraciones([
-            ...misOraciones,
-            {
-                nombre,
-                oracion,
-                categorias,
-            },
-        ]);
-
-        console.log('Mis Oraciones:', misOraciones);
-    }
- 
+    /// router.push('/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc });
+    const [misOraciones, setMisOraciones] = useState([]);
     
+    const {oracion, nombre, categorias} = useLocalSearchParams();
+    console.log('ORACION: PAG MIS ORACIONNES',oracion);
+    console.log('NOMBRE: PAG MIS ORACIONNES',nombre);
+    console.log('CATEGORIAS: PAG MIS ORACIONNES',categorias);
 
+    useEffect(() => {
+        console.log('Mis Oraciones useEffect');
+        setMisOraciones([...misOraciones, {nombre: nombre, oracion: oracion, categorias: categorias}]);
+        console.log('Mis Oraciones useEffect', misOraciones);
+    }, [oracion, nombre, categorias]);
+
+
+    const createCard = (oracion, index) => {
+        return (
+          <View
+            style={styles.containerMainCard}
+            key={index}
+          >
+            <Text style={styles.txtStyle}> {oracion.nombre} </Text>
+            <Text style={styles.txtParrafo1}> {oracion.categorias} </Text>
+          </View>
+        );
+      };
+      
 
 
         return (
@@ -38,22 +42,12 @@ const MisOraciones = () => {
                 }}
             >
 
-                
                 {
                     misOraciones.map((oracion, index) => {
-                        return (
-                            <View
-                                key={index}
-                                style={styles.containerMain}
-                            >
-                                <Text style={styles.txtStyle}> {oracion.nombre} </Text>
-                                <Text style={styles.txtParrafo}> {oracion.oracion} </Text>
-                                <Text style={styles.txtParrafo1}> {oracion.categorias} </Text>
-                            </View>
-                        );
-                     
-                    })
+                        return createCard(oracion, index);
+                    
                 }
+                )}
 
             </View>
         );  
@@ -65,26 +59,12 @@ const MisOraciones = () => {
 export default MisOraciones;    
 
 const styles = StyleSheet.create({
-    containerMain: {
-        backgroundColor: '#0077B6',
+    containerMainCard: {
+        backgroundColor: '#f0f0f0',
         width: '80%',
-        height: 150,
+        height: 200,
         borderRadius: 20,
-        marginTop: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    txtStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 20,
-    },
-    txtParrafo: {
-        color: 'white',
-        fontSize: 15,
-    },
-    txtParrafo1: {
-        color: 'white',
-        fontSize: 15,
+        margin: 10,
+        padding: 10,
     },
   });

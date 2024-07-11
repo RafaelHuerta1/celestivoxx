@@ -23,13 +23,13 @@ const CrearOrc = () => {
 
 
 
-  const [nombre, setNombre] = useState([]);
+  const [nombre, setNombre] = useState('');
   const [intencion, setIntencion] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [txtModal, setTxtModal] = useState("");
   const [txtBtn, setTxtBtn] = useState("Cerrar");
   const [oracion, setOracion] = useState([]);
-  const [categoriasOrc, setCategoriasOrc] = useState( [] );
+  const [categoriasOrc, setCategoriasOrc] = useState( null ); // ?
   const [fcBtnModal, setFcBtnModal] = useState(() => () => console.log("Modal cerrado por defecto"));
 
   const limpiarOracion = () => {
@@ -50,60 +50,86 @@ const CrearOrc = () => {
     "Agradecimiento": "Agradecimiento",
  */
 
+    const categorias = [
+      { label: "Enfermos", value: "enfermos" },
+      { label: "Difuntos", value: "difuntos" },
+      { label: "Familia", value: "familia" },
+      { label: "Agradecimiento", value: "agradecimiento" },
+    ];
+
+    const plantillaOracion = (nombre, categoriasOrc) => {
+      console.log('Categorias: ||', categoriasOrc)
+      console.log('ESTADO INICIAL DE ORACION ||', oracion) //  array vacio
+      const oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
+      Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
+      Que tu luz ilumine su camino y que tu paz llene su corazón.
+      Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+
+
+    
+      console.log('Oracion: ', oracionTxt); // No es undefined
+      console.log('Nombre: ', nombre); // No es undefined
+      console.log('Categorias: ', categoriasOrc); // No es undefined
+    
+/**
+ *    setArtists([
+          ...artists,
+          { id: nextId++, name: name }
+        ]);
+ */
+    
+      setOracion([...oracion, 
+
+        { oracionC: oracionTxt, nombreC: nombre, categoriasC: categoriasOrc }
+
+      ]); // Crea un nuevo array con la nueva oración
+    
+      console.log('ESTADO INICIAL DE ORACION 2 ', oracion); // Ahora muestra el array con la nueva oración
+
+
+    };
 
     // revisar la logica,
     const creatOrc = () => {
-      if (nombre === "" ) {
+      if (nombre === '' || nombre == null )  {
         setModalVisible(true);
         setTxtModal("Por favor ingresa un nombre e intención");
       } else {
-        setModalVisible(true);
-        setTxtModal("Estamos creando tu oración ;)");
-  
+       
+        plantillaOracion(nombre, categoriasOrc);
+
         setTimeout(() => {
           setModalVisible(true);
-          setTxtModal("Oracion Creada...");
-         
-          setTxtBtn("Ir a Mis Oraciones");
-  
-          setFcBtnModal(() => {
-            console.log("navegar a mis oraciones");
+          setTxtModal("Oración generada correctamente");
+          setTxtBtn("ir a mis oraciones");
+          
+          
+          setFcBtnModal(() => () => {
             setModalVisible(false);
-            console.log(nombre, oracion, categoriasOrc);
-            router.push({ pathname: "MisOraciones", params: { nombre: nombre, oracion: oracion , categoriasOrc: categoriasOrc} });
+        //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
+            router.push({ pathname: "/MisOraciones", params: { oracion: oracion , nombre: nombre, categorias: categoriasOrc } });
+
           });
-          // plantillaOracion(nombre, intencion); 
-          // navegar a mis oraciones con la props nombre , intecion y oracion
-        }, 4000);
-        // hacer la llamada a la api de gpt-3
-      }
+
+        }, 2000);
+      
+
+        console.log('Oracion: ', oracion); // index 0 -- vacio, despues de la primera oracion si se llena 
+
+        
+
     };
 
-    useEffect(() => {
-      console.log(categoriasOrc);
-      setFcBtnModal(() => cerrarModal);
-      const plantillaOracion = (nombre, categoriasOrc) => {
-        console.log('Categorias:', categoriasOrc)
-        const oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
-        Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
-        Que tu luz ilumine su camino y que tu paz llene su corazón.
-        Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
     
-       setOracion(
-        ...oracion,
-          oracionTxt
-      
-       );
-      };
-      plantillaOracion(nombre, categoriasOrc);
-    }, [nombre]);
+  };
 
-  const categorias = [
-    { label: "Enfermos", value: "enfermos" },
-    { label: "Difuntos", value: "difuntos" },
-    { label: "Familia", value: "familia" },
-    { label: "Agradecimiento", value: "agradecimiento" },
-  ];
+    useEffect(() => {
+      setFcBtnModal(() => cerrarModal);
+   // plantillaOracion(nombre, categoriasOrc);
+    setCategoriasOrc(categorias[0].value)
+    }, [oracion]);
+
+
    // { label: 'Padre Nuestro', value: 'padre nuestro' },
     
 
@@ -272,7 +298,7 @@ const CrearOrc = () => {
       </View>
     </View>
   );
-};
+    };
 
 export default CrearOrc;
 

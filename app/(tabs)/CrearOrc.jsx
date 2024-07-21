@@ -58,6 +58,11 @@ const CrearOrc = () => {
     ];
 
     const plantillaOracion = (nombre, categoriasOrc) => {
+
+      let oracionTxt = '';
+
+      /*
+
       console.log('Categorias: ||', categoriasOrc)
       console.log('ESTADO INICIAL DE ORACION ||', oracion) //  array vacio
       const oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
@@ -70,18 +75,61 @@ const CrearOrc = () => {
       console.log('Oracion: ', oracionTxt); // No es undefined
       console.log('Nombre: ', nombre); // No es undefined
       console.log('Categorias: ', categoriasOrc); // No es undefined
-    
+    */
 /**
  *    setArtists([
           ...artists,
           { id: nextId++, name: name }
         ]);
  */
+
+      // se me ocurre , utilizar un switch para las categorias y un template string para la oracion
+
+      switch (categoriasOrc) {
+        case 'enfermos':
+          console.log('Categorias: ||', categoriasOrc)
+           oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
+          Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
+          Que tu luz ilumine su camino y que tu paz llene su corazón.
+          Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+        break
+        case 'difuntos':
+          console.log('Categorias: ||', categoriasOrc)
+          oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
+          Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
+          Que tu luz ilumine su camino y que tu paz llene su corazón.
+          Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+
+        break
+        case 'familia':
+          console.log('Categorias: ||', categoriasOrc)
+          oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
+          Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
+          Que tu luz ilumine su camino y que tu paz llene su corazón.
+          Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+
+        break
+        case 'agradecimiento':
+          console.log('Categorias: ||', categoriasOrc)
+          oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
+          Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
+          Que tu luz ilumine su camino y que tu paz llene su corazón.
+          Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+        break
+        default:
+          console.log('Categorias: ||', categoriasOrc)
+          oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
+          Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
+          Que tu luz ilumine su camino y que tu paz llene su corazón.
+          Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+        break
+      }
+
     
       setOracion([...oracion, 
 
-        { oracionC: oracionTxt, nombreC: nombre, categoriasC: categoriasOrc }
-
+       // { oracionC: oracionTxt, nombreC: nombre, categoriasC: categoriasOrc }
+        oracionTxt
       ]); // Crea un nuevo array con la nueva oración
     
       console.log('ESTADO INICIAL DE ORACION 2 ', oracion); // Ahora muestra el array con la nueva oración

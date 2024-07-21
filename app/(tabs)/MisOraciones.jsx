@@ -1,28 +1,48 @@
 import React , {useEffect, useState} from "react";
 import { View, Text, Image, TouchableOpacity, Button , StyleSheet, ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-
+import { router } from "expo-router";
+import { oracionCompleta } from "../logica/index.js";
 
 const MisOraciones = () => { 
     /// router.push('/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc });
     const [misOraciones, setMisOraciones] = useState([]);
+
+   
+   
+
+
+    const { oracion, nombre, categorias } = useLocalSearchParams();
+
     
-    const {oracion, nombre, categorias} = useLocalSearchParams();
-    console.log('ORACION: PAG MIS ORACIONNES',oracion);
+   // console.log('ORACION COMPLETA 1', JSON.stringify(oracion.oracionC)); // oracionC}
+    console.log('ORACION COMPLETA 2', oracion);
+
+
+    //console.dir(oracion.oracion);
     console.log('NOMBRE: PAG MIS ORACIONNES',nombre);
     console.log('CATEGORIAS: PAG MIS ORACIONNES',categorias);
 
     useEffect(() => {
         console.log('Mis Oraciones useEffect');
-        setMisOraciones([...misOraciones, {nombre: nombre, oracion: oracion, categorias: categorias}]);
-        console.log('Mis Oraciones useEffect', misOraciones.oracion);
+     setMisOraciones([...misOraciones, {nombre: nombre, oracion: oracion, categorias: categorias}]);
+        //console.log('Mis Oraciones useEffect', misOraciones.oracion);
+        console.log('Mis Oraciones useEffect', misOraciones);
     }, [oracion, nombre, categorias]);
+
+    console.log('Mis Oraciones', misOraciones);
+
+
+    const openOracionCompleta = (oracion) => {
+        console.log('ORACION COMPLETA ANTES', oracion);
+        router.push('/screens/OracionCompleta', { oracion: oracion });
+    }
 
     // add un scrollview
     const createCard = (oracion, index) => {
         return (
 
-            < > 
+
 
                 <View
                     style={styles.containerMainCard}
@@ -33,11 +53,10 @@ const MisOraciones = () => {
                             <Text style={styles.txtParrafo1}> CATEGORIA: {oracion.categorias} </Text>
 
                             <View>
-                                <Text style={styles.txtVerMas}> Ver Oracion Completa </Text>
+                                <Text style={styles.txtVerMas} onPress={openOracionCompleta}> Ver Oracion Completa </Text>
                             </View>
                     
                 </View>
-          </>
 
         );
       };
@@ -56,6 +75,7 @@ const MisOraciones = () => {
             >
 
                 {
+                    misOraciones.length === 0 ? <Text> No hay oraciones </Text> :
                     misOraciones.map((oracion, index) => {
                         return createCard(oracion, index);
                     

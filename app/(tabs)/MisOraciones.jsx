@@ -9,7 +9,7 @@ const MisOraciones = () => {
     const [misOraciones, setMisOraciones] = useState([]);
 
    
-   
+   // almacenar de manera local misOraciones, 
 
 
     const { oracion, nombre, categorias } = useLocalSearchParams();

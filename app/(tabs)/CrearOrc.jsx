@@ -15,6 +15,9 @@ import {
 import MisOraciones from "./MisOraciones.jsx";
 import { Picker } from "@react-native-picker/picker";
 import { router } from "expo-router";
+import {getOracionEnfermos} from "../data/oraciones.js";
+
+
 
 const CrearOrc = () => {
 
@@ -59,6 +62,9 @@ const CrearOrc = () => {
 
     const plantillaOracion = (nombre, categoriasOrc) => {
 
+     
+      let getIndex = Math.floor(Math.random() * 11);
+      console.log(getIndex);
       let oracionTxt = '';
 
       /*
@@ -87,11 +93,8 @@ const CrearOrc = () => {
 
       switch (categoriasOrc) {
         case 'enfermos':
-          console.log('Categorias: ||', categoriasOrc)
-           oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
-          Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
-          Que tu luz ilumine su camino y que tu paz llene su corazón.
-          Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+          oracionTxt = getOracionEnfermos(getIndex , nombre)
+          console.log('ORC DESDE MI JSON:', oracionTxt);
         break
         case 'difuntos':
           console.log('Categorias: ||', categoriasOrc)
@@ -126,11 +129,7 @@ const CrearOrc = () => {
       }
 
     
-      setOracion([...oracion, 
-
-       // { oracionC: oracionTxt, nombreC: nombre, categoriasC: categoriasOrc }
-        oracionTxt
-      ]); // Crea un nuevo array con la nueva oración
+     
     
       console.log('ESTADO INICIAL DE ORACION 2 ', oracion); // Ahora muestra el array con la nueva oración
 

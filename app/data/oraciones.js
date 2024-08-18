@@ -47,7 +47,7 @@ export   function getOracionEnfermos(index, nombre){
             "id": 7,
             "categoria": "Oración para los Enfermos",
             "oracion": `Padre Celestial,\n\nTe pedimos que envíes tu sanación sobre ${nombre}. Que ${nombre} sienta tu presencia y tu amor en cada momento de su enfermedad. Fortalece su espíritu y dale la paz que necesita para enfrentar este desafío.\n\nSeñor Jesús, en tu infinita bondad, escucha nuestras oraciones y concede a ${nombre} la sanación que tanto necesita. Que tu presencia sea un consuelo constante en su vida, renovando su esperanza y su fe.\n`,
-            "versiculo_biblico": "\nVersículo Bíblico:\n¿Está alguno enfermo entre vosotros? Llame a los ancianos de la iglesia, y oren por él, ungiéndole con aceite en el nombre del Señor. Y la oración de fe salvará al enfermo, y el Señor lo levantará; y si hubiere cometido pecados, le serán perdonados. \nSantiago 5:14-15”
+            "versiculo_biblico": "\nVersículo Bíblico:\n¿Está alguno enfermo entre vosotros? Llame a los ancianos de la iglesia, y oren por él, ungiéndole con aceite en el nombre del Señor. Y la oración de fe salvará al enfermo, y el Señor lo levantará; y si hubiere cometido pecados, le serán perdonados. \nSantiago 5:14-15",
         },
         {
             "id": 8,

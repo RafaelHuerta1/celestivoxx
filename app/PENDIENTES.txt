@@ -4,3 +4,9 @@ REVISAR EN MIS ORACIONES
     - ANTES DE CREAR NUESTRA PRIMERA ORACION DEBEMOS DE MOSTRAR UN MENSAJE QUE INDIQUE 
       QUE AUN NO TENEMOS ORACIONES. 
     - Disenar la pantalla de oraciones completa ademas de terminar su funcionaidad.
+    - crear la logica para la creacion de las oraciones ++ check
+    -almacenar de manera local las oraciones , PRIORIDAD...
+
+    - suscripcion + ads
+
+    crear la seccion de retos , para que dia con dia rese por x personna

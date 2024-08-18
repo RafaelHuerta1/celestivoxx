@@ -7,11 +7,6 @@ import { oracionCompleta } from "../logica/index.js";
 const MisOraciones = () => { 
     /// router.push('/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc });
     const [misOraciones, setMisOraciones] = useState([]);
-
-   
-   // almacenar de manera local misOraciones, 
-
-
     const { oracion, nombre, categorias } = useLocalSearchParams();
 
     
@@ -23,19 +18,28 @@ const MisOraciones = () => {
     console.log('NOMBRE: PAG MIS ORACIONNES',nombre);
     console.log('CATEGORIAS: PAG MIS ORACIONNES',categorias);
 
+
+
+    if(!oracion || !nombre || !categorias){
+        console.log('No hay oracion');
+        return <Text> No hay oracion </Text>;
+    }
+
+
     useEffect(() => {
-        console.log('Mis Oraciones useEffect');
-     setMisOraciones([...misOraciones, {nombre: nombre, oracion: oracion, categorias: categorias}]);
-        //console.log('Mis Oraciones useEffect', misOraciones.oracion);
-        console.log('Mis Oraciones useEffect', misOraciones);
-    }, [oracion, nombre, categorias]);
-
-    console.log('Mis Oraciones', misOraciones);
-
+    console.log('Mis Oraciones useEffect');
+    setMisOraciones(prevOraciones => [
+        ...prevOraciones,
+        { nombre: nombre, oracion: oracion, categorias: categorias }
+    ]);
+    console.log('Mis Oraciones useEffect', misOraciones);
+}, [oracion, nombre, categorias]);
 
     const openOracionCompleta = (oracion) => {
-        console.log('ORACION COMPLETA ANTES', oracion);
-        router.push('/screens/OracionCompleta', { oracion: oracion });
+        console.log('ORACION COMPLETA ANTES', oracion); // si llega
+       // router.push('/screens/OracionCompleta', { oracion: misOraciones  }) // Undefined;
+        router.push({ pathname: "/screens/OracionCompleta", params: { oracion: oracion } });
+
     }
 
     // add un scrollview
@@ -53,7 +57,7 @@ const MisOraciones = () => {
                             <Text style={styles.txtParrafo1}> CATEGORIA: {oracion.categorias} </Text>
 
                             <View>
-                                <Text style={styles.txtVerMas} onPress={openOracionCompleta}> Ver Oracion Completa </Text>
+                                <Text style={styles.txtVerMas} onPress={() => openOracionCompleta(oracion)}>Ver Oracion Completa</Text>
                             </View>
                     
                 </View>

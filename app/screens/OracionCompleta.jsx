@@ -10,14 +10,17 @@ function OracionCompleta() {
 
 
 
-  console.log('ORACION COMPLETA', oracion);
+  console.log('ORACION COMPLETA en screen', oracion);
 
   return (
     <View>
       
       {
         oracion === undefined ? <Text>Aun no tienes oracion</Text>:
-        <Text style={styles.txtMainOrcCompleta} >Oracion Completa</Text>
+        <Text style={styles.txtMainOrcCompleta} >Oracion Completa:
+          
+          {oracion}
+        </Text>
       }
     </View>
   );

@@ -94,7 +94,27 @@ const CrearOrc = () => {
       switch (categoriasOrc) {
         case 'enfermos':
           oracionTxt = getOracionEnfermos(getIndex , nombre)
-          console.log('ORC DESDE MI JSON:', oracionTxt);
+          console.log('ORC DESDE MI JSON:', oracionTxt.oracion);
+
+        
+          setTimeout(() => {
+            setModalVisible(true);
+            setTxtModal("Oración generada correctamente");
+            setTxtBtn("ir a mis oraciones");
+            
+            
+            
+            setFcBtnModal(() => () => {
+              setModalVisible(false);
+          //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
+              router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
+  
+            });
+  
+  
+          }, 2000);
+        
+
         break
         case 'difuntos':
           console.log('Categorias: ||', categoriasOrc)
@@ -145,21 +165,6 @@ const CrearOrc = () => {
        
         plantillaOracion(nombre, categoriasOrc);
 
-        setTimeout(() => {
-          setModalVisible(true);
-          setTxtModal("Oración generada correctamente");
-          setTxtBtn("ir a mis oraciones");
-          
-          
-          setFcBtnModal(() => () => {
-            setModalVisible(false);
-        //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
-            router.push({ pathname: "/MisOraciones", params: { oracion: oracion , nombre: nombre, categorias: categoriasOrc } });
-
-          });
-
-        }, 2000);
-      
 
         console.log('Oracion: ', oracion); // index 0 -- vacio, despues de la primera oracion si se llena 
 

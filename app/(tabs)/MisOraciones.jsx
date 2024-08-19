@@ -11,29 +11,25 @@ const MisOraciones = () => {
 
     
    // console.log('ORACION COMPLETA 1', JSON.stringify(oracion.oracionC)); // oracionC}
-    console.log('ORACION COMPLETA 2', oracion);
-
-
-    //console.dir(oracion.oracion);
-    console.log('NOMBRE: PAG MIS ORACIONNES',nombre);
-    console.log('CATEGORIAS: PAG MIS ORACIONNES',categorias);
-
-
-
-    if(!oracion || !nombre || !categorias){
-        console.log('No hay oracion');
-        return <Text> No hay oracion </Text>;
+   useEffect(() => {
+    if (oracion && nombre && categorias) {
+        console.log('Mis Oraciones useEffect');
+        setMisOraciones(prevOraciones => [
+            ...prevOraciones,
+            { nombre: nombre, oracion: oracion, categorias: categorias }
+        ]);
+        console.log('Mis Oraciones useEffect', misOraciones);
     }
-
-
-    useEffect(() => {
-    console.log('Mis Oraciones useEffect');
-    setMisOraciones(prevOraciones => [
-        ...prevOraciones,
-        { nombre: nombre, oracion: oracion, categorias: categorias }
-    ]);
-    console.log('Mis Oraciones useEffect', misOraciones);
 }, [oracion, nombre, categorias]);
+
+console.log('NOMBRE: PAG MIS ORACIONNES', nombre);
+console.log('ORACION: PAG MIS ORACIONNES', oracion);
+console.log('CATEGORIAS: PAG MIS ORACIONNES', categorias);
+
+if (!oracion || !nombre || !categorias) {
+    console.log('No hay oracion');
+    return <Text> No hay oracion </Text>;
+}
 
     const openOracionCompleta = (oracion) => {
         console.log('ORACION COMPLETA ANTES', oracion); // si llega
@@ -57,7 +53,7 @@ const MisOraciones = () => {
                             <Text style={styles.txtParrafo1}> CATEGORIA: {oracion.categorias} </Text>
 
                             <View>
-                                <Text style={styles.txtVerMas} onPress={() => openOracionCompleta(oracion)}>Ver Oracion Completa</Text>
+                                <Text style={styles.txtVerMas} onPress={() => openOracionCompleta(oracion.oracion)}>Ver Oracion Completa</Text>
                             </View>
                     
                 </View>

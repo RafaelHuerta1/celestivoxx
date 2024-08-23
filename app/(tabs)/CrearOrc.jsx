@@ -15,7 +15,7 @@ import {
 import MisOraciones from "./MisOraciones.jsx";
 import { Picker } from "@react-native-picker/picker";
 import { router } from "expo-router";
-import {getOracionEnfermos} from "../data/oraciones.js";
+import {getOracionDifuntos, getOracionEnfermos} from "../data/oraciones.js";
 
 
 
@@ -118,10 +118,26 @@ const CrearOrc = () => {
         break
         case 'difuntos':
           console.log('Categorias: ||', categoriasOrc)
-          oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
-          Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
-          Que tu luz ilumine su camino y que tu paz llene su corazón.
-          Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+          oracionTxt = getOracionDifuntos(getIndex, nombre)
+          console.log('ORC DESDE MI JSON DIFUNTOS:', oracionTxt.oracion);
+
+
+          setTimeout(() => {
+            setModalVisible(true);
+            setTxtModal("Oración generada correctamente");
+            setTxtBtn("ir a mis oraciones");
+            
+            
+            
+            setFcBtnModal(() => () => {
+              setModalVisible(false);
+          //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
+              router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
+  
+            });
+  
+  
+          }, 2000);
 
         break
         case 'familia':

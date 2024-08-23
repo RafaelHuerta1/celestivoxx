@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     containerMainCard: {
         backgroundColor: 'white',
         width: '80%',
-        height: 120,
+        height: 'auto',
         borderRadius: 20,
         margin: 10,
         padding: 13,

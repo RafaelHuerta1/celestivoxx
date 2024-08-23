@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text , StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text , StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
 function OracionCompleta() {
@@ -14,78 +14,78 @@ function OracionCompleta() {
   console.log('CATEGORIAS en screen ||', categorias);
 
   return (
+
+    <>
+       <ScrollView  showsVerticalScrollIndicator={false}>
     <View
-     style={{
+    style={{
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "#F5FCFF",
+      backgroundColor: "white",
+      height: "auto",
     }}
-    >
-      
+  >
 
-      <Text
-        style={{
-          fontSize: 25,
-          fontWeight: "bold",
-          textAlign: "center",
-          marginTop: 30,
-          width: "90%",
-          marginLeft: "5%",
-          marginRight: "5%",
-          textAlign: "center",
-        }}
-      
-      >
-          Oracion por la siguiente intencion: {categorias ? categorias.toUpperCase() : ''}
+    <View>
+      <Text style={{ fontSize: 30, textAlign: "center", margin: 20, fontWeight: 'bold' }}>
+        Oración Completa
       </Text>
+    </View>
+    
 
       {
-        oracion === undefined ? <Text>Aun no tienes oracion</Text>:
+        oracion === undefined ? <Text>Aun no tienes oracion</Text> :
         <Text style={styles.txtMainOrcCompleta}>
-        {'\n\n'}
-        {oracion}
-      </Text>
-
+          {'\n'}
+          {oracion}
+        </Text>
       }
 
 
+    <TouchableOpacity
+      //onPress={creatOrc}
+      style={{
+        backgroundColor: "#841584",
+        width: 300,
+        height: 50,
+        borderRadius: 10,
+        margin: 20,
+        justifyContent: "center",
+      }}
+    >
+      {/* Your button content here */}
 
-<TouchableOpacity
-          //onPress={creatOrc}
-          style={{
-            backgroundColor: "#4CAF50", // verde bajito #4CAF50
-            width: 300,
-            height: 50,
-            borderRadius: 10,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 120,
-          }}
-        >
-          <Text
-            style={{
-              color: "white",
-              fontWeight: "bold",
-              fontSize: 20,
-            }}
-          >
-            Compartir Oracion
-          </Text>
-        </TouchableOpacity>
+      <Text
+        style={{
+          color: "white",
+          textAlign: "center",
+          fontSize: 20,
+          marginTop: 5,
+        }}
+      >
+        Compartir Oracion
+      </Text>
 
-    </View>
+
+    </TouchableOpacity>
+     </View>
+  </ScrollView> 
+    </>
+
+   
   );
 }
 
 const styles = StyleSheet.create({
   txtMainOrcCompleta:{
-      fontSize: 22,
-      fontWeight: '400',
-      width: '100%',
-      padding: 30, 
-      textAlign: 'center',
-      marginTop: 0,
-      
+   fontSize: 25,
+   textAlign: 'center',
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 25,
+    borderWidth: 1,
+    borderTopLeftRadius: 20,
   }
 });
 

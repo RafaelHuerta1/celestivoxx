@@ -54,7 +54,7 @@ const CrearOrc = () => {
  */
 
     const categorias = [
-      { label: "Enfermos", value: "enfermos" },
+      { label: "Enfermedad", value: "enfermos" },
       { label: "Difuntos", value: "difuntos" },
       { label: "Familia", value: "familia" },
       { label: "Agradecimiento", value: "agradecimiento" },

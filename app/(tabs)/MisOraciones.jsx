@@ -34,7 +34,7 @@ if (!oracion || !nombre || !categorias) {
     const openOracionCompleta = (oracion) => {
         console.log('ORACION COMPLETA ANTES', oracion); // si llega
        // router.push('/screens/OracionCompleta', { oracion: misOraciones  }) // Undefined;
-        router.push({ pathname: "/screens/OracionCompleta", params: { oracion: oracion } });
+        router.push({ pathname: "/screens/OracionCompleta", params: { oracion: oracion, categorias: categorias } });
 
     }
 

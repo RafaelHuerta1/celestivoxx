@@ -5,12 +5,13 @@ import { useLocalSearchParams } from 'expo-router';
 function OracionCompleta() {
 
 
-  const { oracion } = useLocalSearchParams();
+  const { oracion, categorias } = useLocalSearchParams();
 
 
 
 
   console.log('ORACION COMPLETA en screen', oracion);
+  console.log('CATEGORIAS en screen ||', categorias);
 
   return (
     <View
@@ -21,14 +22,33 @@ function OracionCompleta() {
     }}
     >
       
+
+      <Text
+        style={{
+          fontSize: 25,
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: 30,
+          width: "90%",
+          marginLeft: "5%",
+          marginRight: "5%",
+          textAlign: "center",
+        }}
+      
+      >
+          Oracion por la siguiente intencion: {categorias ? categorias.toUpperCase() : ''}
+      </Text>
+
       {
         oracion === undefined ? <Text>Aun no tienes oracion</Text>:
-        <Text style={styles.txtMainOrcCompleta} >Oracion Completa:
-          {'\n'} 
-          {oracion}
-        </Text>
+        <Text style={styles.txtMainOrcCompleta}>
+        {'\n\n'}
+        {oracion}
+      </Text>
 
       }
+
+
 
 <TouchableOpacity
           //onPress={creatOrc}
@@ -62,9 +82,10 @@ const styles = StyleSheet.create({
       fontSize: 22,
       fontWeight: '400',
       width: '100%',
-      padding: 22, 
+      padding: 30, 
       textAlign: 'center',
-      marginTop: 70,
+      marginTop: 0,
+      
   }
 });
 

@@ -5,13 +5,13 @@ import { router, useLocalSearchParams } from 'expo-router';
 function OracionCompleta() {
 
 
-  const { oracion, categorias } = useLocalSearchParams();
+  const { oracion } = useLocalSearchParams();
 
 
 
 
   console.log('ORACION COMPLETA en screen', oracion);
-  console.log('CATEGORIAS en screen ||', categorias);
+
 
 
   const onShare = async () => {

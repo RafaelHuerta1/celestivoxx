@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
 const MisOraciones = () => {
   const [prayers, setPrayers] = useState([]);
 
-    console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , prayers);
+    console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , setPrayers);
 
   useEffect(() => {
     const fetchPrayers = async () => {
@@ -171,7 +171,12 @@ const MisOraciones = () => {
           <View style={{ marginVertical: 8, padding: 16, backgroundColor: 'white', borderRadius: 8 }}>
             <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black' }}>NOMBRE: {item.name}</Text>
             <Text style={{ fontSize: 16 }}>SITUACION: {item.situation}</Text>
-            <Text style={{ fontSize: 16 , color: 'blue' , fontWeight: 'bold'}}>Ver Oracion Completa</Text>
+            <Text onPress={
+                () => {
+                 //   router.push('/screens/OracionCompleta', { oracion: item });
+                    router.push( { pathname: "/screens/OracionCompleta", params: { oracion: item.prayer } });
+                }
+            } style={{ fontSize: 16 , color: 'blue' , fontWeight: 'bold' , opacity: 0.8}}>Ver Oracion Completa</Text>
             {
                 /**
                  *  <Text style={{ fontSize: 16 }}>{item.prayer}</Text>

@@ -15,8 +15,15 @@ import {
 import MisOraciones from "./MisOraciones.jsx";
 import { Picker } from "@react-native-picker/picker";
 import { router } from "expo-router";
-import {getOracionDifuntos, getOracionEnfermos} from "../data/oraciones.js";
+import {getOracionDifuntos, getOracionEnfermos , getOracionAgradecimiento
 
+, getOracionFamilia
+
+} from "../data/oraciones.js";
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { savePrayer } from '../almacenarOracion.js'
 
 
 const CrearOrc = () => {
@@ -142,18 +149,53 @@ const CrearOrc = () => {
         break
         case 'familia':
           console.log('Categorias: ||', categoriasOrc)
-          oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
-          Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
-          Que tu luz ilumine su camino y que tu paz llene su corazón.
-          Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+          oracionTxt = getOracionFamilia(getIndex, nombre)
+          savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
+
+          setTimeout(() => {
+            setModalVisible(true);
+            setTxtModal("Oración generada correctamente");
+            setTxtBtn("ir a mis oraciones");
+            
+            
+            
+            setFcBtnModal(() => () => {
+              setModalVisible(false);
+          //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
+            //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
+                router.push('/MisOraciones');
+            });
+  
+  
+          }, 2000);
 
         break
         case 'agradecimiento':
+
+          
           console.log('Categorias: ||', categoriasOrc)
-          oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
-          Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
-          Que tu luz ilumine su camino y que tu paz llene su corazón.
-          Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
+          oracionTxt = getOracionAgradecimiento(getIndex, nombre)
+
+          setTimeout(() => {
+            setModalVisible(true);
+            setTxtModal("Oración generada correctamente");
+            setTxtBtn("ir a mis oraciones");
+            
+            
+            
+            setFcBtnModal(() => () => {
+              setModalVisible(false);
+          //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
+              router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
+  
+            });
+  
+  
+          }, 2000);
+        
+          
+
+
         break
         default:
           console.log('Categorias: ||', categoriasOrc)

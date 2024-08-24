@@ -1,8 +1,14 @@
 import React , {useEffect, useState} from "react";
-import { View, Text, Image, TouchableOpacity, Button , StyleSheet, ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity, Button , StyleSheet, ScrollView, FlatList } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { router } from "expo-router";
 import { oracionCompleta } from "../logica/index.js";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { getPrayers } from '../almacenarOracion.js'
+
+
+/*
 
 const MisOraciones = () => { 
     /// router.push('/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc });
@@ -10,6 +16,8 @@ const MisOraciones = () => {
     const { oracion, nombre, categorias } = useLocalSearchParams();
 
     
+    console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , getPrayers());
+
    // console.log('ORACION COMPLETA 1', JSON.stringify(oracion.oracionC)); // oracionC}
    useEffect(() => {
     if (oracion && nombre && categorias) {
@@ -121,3 +129,60 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
   });
+
+  */
+
+
+const MisOraciones = () => {
+  const [prayers, setPrayers] = useState([]);
+
+    console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , prayers);
+
+  useEffect(() => {
+    const fetchPrayers = async () => {
+      const storedPrayers = await getPrayers();
+      setPrayers(storedPrayers);
+    };
+
+    fetchPrayers();
+  }, []);
+
+  const getPrayers = async () => {
+    try {
+      const storedPrayers = await AsyncStorage.getItem('prayers');
+      return storedPrayers ? JSON.parse(storedPrayers) : [];
+    } catch (error) {
+      console.error('Error obteniendo las oraciones:', error);
+      return [];
+    }
+  };
+
+  return (
+    <View style={{ flex: 1, padding: 16, 
+
+
+     }}>
+      <FlatList
+      // eliminar la simulacion del scroll
+        showsVerticalScrollIndicator={false}
+        data={prayers}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={{ marginVertical: 8, padding: 16, backgroundColor: 'white', borderRadius: 8 }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black' }}>NOMBRE: {item.name}</Text>
+            <Text style={{ fontSize: 16 }}>SITUACION: {item.situation}</Text>
+            <Text style={{ fontSize: 16 , color: 'blue' , fontWeight: 'bold'}}>Ver Oracion Completa</Text>
+            {
+                /**
+                 *  <Text style={{ fontSize: 16 }}>{item.prayer}</Text>
+                 */
+            }
+
+          </View>
+        )}
+      />
+    </View>
+  );
+};
+
+export default MisOraciones;

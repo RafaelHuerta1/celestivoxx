@@ -123,3 +123,125 @@ export function getOracionDifuntos(index, nombre) {
 
     return oracionesDifuntos[index];
 }
+
+
+
+export function getOracionAgradecimiento(index, nombre) {
+
+    const oracionesAgradecimiento = [
+        {
+            "id": 1,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Dios de amor y misericordia,\n\nEn este momento de gratitud y alegría, nos dirigimos a ti con corazones llenos de agradecimiento. Te damos gracias por todas las bendiciones que has derramado sobre nuestras vidas y por tu amor inagotable. Te agradecemos por tu presencia constante en nuestro camino y por las lecciones que nos has enseñado.\n\nHoy, especialmente, queremos expresar nuestra más profunda gratitud por ${nombre}. Te agradecemos por su amor, su amistad y su apoyo incondicional. Que nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        },
+        {
+            "id": 2,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Señor Todopoderoso,\n\nTe damos gracias por todas las bendiciones que has derramado sobre nuestras vidas. Gracias por tu amor y tu misericordia infinita. Hoy queremos agradecerte especialmente por ${nombre}. Gracias por su presencia en nuestras vidas y por todo lo que nos ha enseñado.\n\nQue nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        },
+        {
+            "id": 3,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Padre Celestial,\n\nTe agradecemos por todas las bendiciones que has derramado sobre nosotros. Gracias por tu amor y tu guía constante. Hoy queremos expresar nuestra gratitud por ${nombre}. Gracias por su amor, su apoyo y su amistad.\n\nQue nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        },
+        {
+            "id": 4,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Dios de bondad,\n\nEn este momento de gratitud, queremos darte gracias por todas las bendiciones que has derramado sobre nuestras vidas. Gracias por tu amor y tu misericordia. Hoy queremos agradecerte especialmente por ${nombre}. Gracias por su presencia en nuestras vidas y por todo lo que nos ha enseñado.\n\nQue nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        },
+        {
+            "id": 5,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Señor de la vida,\n\nTe damos gracias por todas las bendiciones que has derramado sobre nuestras vidas. Gracias por tu amor y tu misericordia infinita. Hoy queremos agradecerte especialmente por ${nombre}. Gracias por su presencia en nuestras vidas y por todo lo que nos ha enseñado.\n\nQue nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        },
+        {
+            "id": 6,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Padre Eterno,\n\nTe agradecemos por todas las bendiciones que has derramado sobre nosotros. Gracias por tu amor y tu guía constante. Hoy queremos expresar nuestra gratitud por ${nombre}. Gracias por su amor, su apoyo y su amistad.\n\nQue nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        },
+        {
+            "id": 7,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Dios de compasión,\n\nEn este momento de gratitud, queremos darte gracias por todas las bendiciones que has derramado sobre nuestras vidas. Gracias por tu amor y tu misericordia. Hoy queremos agradecerte especialmente por ${nombre}. Gracias por su presencia en nuestras vidas y por todo lo que nos ha enseñado.\n\nQue nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        },
+        {
+            "id": 8,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Señor de la misericordia,\n\nTe damos gracias por todas las bendiciones que has derramado sobre nuestras vidas. Gracias por tu amor y tu misericordia infinita. Hoy queremos agradecerte especialmente por ${nombre}. Gracias por su presencia en nuestras vidas y por todo lo que nos ha enseñado.\n\nQue nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        },
+        {
+            "id": 9,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Dios de bondad,\n\nTe agradecemos por todas las bendiciones que has derramado sobre nosotros. Gracias por tu amor y tu guía constante. Hoy queremos expresar nuestra gratitud por ${nombre}. Gracias por su amor, su apoyo y su amistad.\n\nQue nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        },
+        {
+            "id": 10,
+            "categoria": "Oración de Agradecimiento",
+            "oracion": `Padre de misericordia,\n\nEn este momento de gratitud, queremos darte gracias por todas las bendiciones que has derramado sobre nuestras vidas. Gracias por tu amor y tu misericordia. Hoy queremos agradecerte especialmente por ${nombre}. Gracias por su presencia en nuestras vidas y por todo lo que nos ha enseñado.\n\nQue nuestra gratitud sea constante y que vivamos nuestras vidas de acuerdo con tu voluntad. Amén.\n`
+        }
+    ];
+
+    return oracionesAgradecimiento[index];
+}
+
+
+
+export function getOracionFamilia(index, nombre) {
+    console.log(index, nombre);
+
+    const oracionesFamilia = [
+        {
+            "id": 1,
+            "categoria": "Oración por la Familia",
+            "oracion": `Padre Celestial,\n\nTe damos gracias por el regalo de la familia. Te pedimos que bendigas a ${nombre} y a todos los miembros de nuestra familia. Que tu amor y tu paz llenen nuestros corazones y nuestros hogares. Ayúdanos a vivir en armonía y a apoyarnos mutuamente en todo momento.\n\nSeñor, fortalece nuestros lazos familiares y guíanos en tu camino. Que tu luz brille sobre nosotros y nos dé la sabiduría para enfrentar los desafíos de la vida juntos. Amén.\n`
+        },
+        {
+            "id": 2,
+            "categoria": "Oración por la Familia",
+            "oracion": `Señor Todopoderoso,\n\nTe pedimos que derrames tus bendiciones sobre nuestra familia. Que ${nombre} y todos nosotros sintamos tu presencia y tu amor en cada momento. Ayúdanos a ser pacientes y comprensivos unos con otros, y a vivir en paz y unidad.\n\nQue tu protección nos acompañe siempre y que tu gracia nos guíe en cada paso que demos. Amén.\n`
+        },
+        {
+            "id": 3,
+            "categoria": "Oración por la Familia",
+            "oracion": `Dios de amor,\n\nTe agradecemos por la familia que nos has dado. Te pedimos que bendigas a ${nombre} y a todos los miembros de nuestra familia. Que tu amor y tu paz llenen nuestros corazones y nuestros hogares. Ayúdanos a vivir en armonía y a apoyarnos mutuamente en todo momento.\n\nSeñor, fortalece nuestros lazos familiares y guíanos en tu camino. Que tu luz brille sobre nosotros y nos dé la sabiduría para enfrentar los desafíos de la vida juntos. Amén.\n`
+        },
+        {
+            "id": 4,
+            "categoria": "Oración por la Familia",
+            "oracion": `Padre Eterno,\n\nTe pedimos que bendigas a nuestra familia con tu amor y tu paz. Que ${nombre} y todos nosotros sintamos tu presencia en cada momento. Ayúdanos a ser pacientes y comprensivos unos con otros, y a vivir en paz y unidad.\n\nQue tu protección nos acompañe siempre y que tu gracia nos guíe en cada paso que demos. Amén.\n`
+        },
+        {
+            "id": 5,
+            "categoria": "Oración por la Familia",
+            "oracion": `Señor de la vida,\n\nTe damos gracias por el regalo de la familia. Te pedimos que bendigas a ${nombre} y a todos los miembros de nuestra familia. Que tu amor y tu paz llenen nuestros corazones y nuestros hogares. Ayúdanos a vivir en armonía y a apoyarnos mutuamente en todo momento.\n\nSeñor, fortalece nuestros lazos familiares y guíanos en tu camino. Que tu luz brille sobre nosotros y nos dé la sabiduría para enfrentar los desafíos de la vida juntos. Amén.\n`
+        },
+        {
+            "id": 6,
+            "categoria": "Oración por la Familia",
+            "oracion": `Dios de bondad,\n\nTe agradecemos por la familia que nos has dado. Te pedimos que bendigas a ${nombre} y a todos los miembros de nuestra familia. Que tu amor y tu paz llenen nuestros corazones y nuestros hogares. Ayúdanos a vivir en armonía y a apoyarnos mutuamente en todo momento.\n\nSeñor, fortalece nuestros lazos familiares y guíanos en tu camino. Que tu luz brille sobre nosotros y nos dé la sabiduría para enfrentar los desafíos de la vida juntos. Amén.\n`
+        },
+        {
+            "id": 7,
+            "categoria": "Oración por la Familia",
+            "oracion": `Padre de misericordia,\n\nTe pedimos que bendigas a nuestra familia con tu amor y tu paz. Que ${nombre} y todos nosotros sintamos tu presencia en cada momento. Ayúdanos a ser pacientes y comprensivos unos con otros, y a vivir en paz y unidad.\n\nQue tu protección nos acompañe siempre y que tu gracia nos guíe en cada paso que demos. Amén.\n`
+        },
+        {
+            "id": 8,
+            "categoria": "Oración por la Familia",
+            "oracion": `Señor de la misericordia,\n\nTe damos gracias por el regalo de la familia. Te pedimos que bendigas a ${nombre} y a todos los miembros de nuestra familia. Que tu amor y tu paz llenen nuestros corazones y nuestros hogares. Ayúdanos a vivir en armonía y a apoyarnos mutuamente en todo momento.\n\nSeñor, fortalece nuestros lazos familiares y guíanos en tu camino. Que tu luz brille sobre nosotros y nos dé la sabiduría para enfrentar los desafíos de la vida juntos. Amén.\n`
+        },
+        {
+            "id": 9,
+            "categoria": "Oración por la Familia",
+            "oracion": `Dios de compasión,\n\nTe agradecemos por la familia que nos has dado. Te pedimos que bendigas a ${nombre} y a todos los miembros de nuestra familia. Que tu amor y tu paz llenen nuestros corazones y nuestros hogares. Ayúdanos a vivir en armonía y a apoyarnos mutuamente en todo momento.\n\nSeñor, fortalece nuestros lazos familiares y guíanos en tu camino. Que tu luz brille sobre nosotros y nos dé la sabiduría para enfrentar los desafíos de la vida juntos. Amén.\n`
+        },
+        {
+            "id": 10,
+            "categoria": "Oración por la Familia",
+            "oracion": `Padre de amor,\n\nTe pedimos que bendigas a nuestra familia con tu amor y tu paz. Que ${nombre} y todos nosotros sintamos tu presencia en cada momento. Ayúdanos a ser pacientes y comprensivos unos con otros, y a vivir en paz y unidad.\n\nQue tu protección nos acompañe siempre y que tu gracia nos guíe en cada paso que demos. Amén.\n`
+        }
+    ];
+
+    return oracionesFamilia[index];
+}
+

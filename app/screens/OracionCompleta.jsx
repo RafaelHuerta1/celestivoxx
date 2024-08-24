@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text , StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { View, Text , StyleSheet, TouchableOpacity, ScrollView, Share} from 'react-native';
+import { router, useLocalSearchParams } from 'expo-router';
 
 function OracionCompleta() {
 
@@ -12,6 +12,30 @@ function OracionCompleta() {
 
   console.log('ORACION COMPLETA en screen', oracion);
   console.log('CATEGORIAS en screen ||', categorias);
+
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          oracion,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
+
+
+
 
   return (
 
@@ -43,7 +67,7 @@ function OracionCompleta() {
 
 
     <TouchableOpacity
-      //onPress={creatOrc}
+      onPress={onShare}
       style={{
         backgroundColor: "#841584",
         width: 300,
@@ -64,6 +88,38 @@ function OracionCompleta() {
         }}
       >
         Compartir Oracion
+      </Text>
+
+
+    </TouchableOpacity>
+    
+    <TouchableOpacity
+      onPress={
+        () => {
+          console.log('Regresar a mis oraciones');
+          router.push('MisOraciones');
+        }
+      }
+      style={{
+        backgroundColor: "#0077B6", // color azul del boton anterior #841584
+        width: 300,
+        height: 50,
+        borderRadius: 10,
+        margin: 20,
+        justifyContent: "center",
+      }}
+    >
+      {/* Your button content here */}
+
+      <Text
+        style={{
+          color: "white",
+          textAlign: "center",
+          fontSize: 20,
+          marginTop: 5,
+        }}
+      >
+        Regresar a mis oraciones
       </Text>
 
 

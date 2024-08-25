@@ -138,6 +138,18 @@ const MisOraciones = () => {
 
     console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , setPrayers);
 
+    //'TODOS', 'ENFERMOS' , 'DIFUNTOS' , 'FAMILIA' , 'AGRADECIMIENTO'
+  const categoria = [
+    
+    {id : '1', title: 'TODOS'},
+    {id : '2', title:'ENFERMOS'},
+    {id : '3', title:'DIFUNTOS'},
+    {id : '4', title:'FAMILIA'},
+    {id : '5', title:'AGRADECIMIENTO'},
+
+  ]
+
+
   useEffect(() => {
     const fetchPrayers = async () => {
       const storedPrayers = await getPrayers();
@@ -145,7 +157,7 @@ const MisOraciones = () => {
     };
 
     fetchPrayers();
-  }, []);
+  }, [prayers]);
 
   const getPrayers = async () => {
     try {
@@ -157,36 +169,84 @@ const MisOraciones = () => {
     }
   };
 
+
+  const renderrItem = ( {item} ) => {
+      return(
+           <View
+            style={{  borderWidth: 1, borderColor: 'black', margin: 15, padding: 10, borderRadius: 10,
+              backgroundColor: 'white'
+
+              }}
+           >
+              <Text
+               style={{fontSize: 18, fontWeight: 'bold', color: 'grey' }}
+              > {item.title} </Text>
+           </View>
+      )
+
+  }
+
   return (
-    <View style={{ flex: 1, padding: 26, 
+    <View style={{ flex: 1, padding: 16, 
         backgroundColor: '#f2f0f0',  // color de fondo , gris - claro #f0f0f0
 
      }}>
-      <FlatList
-      // eliminar la simulacion del scroll
-        showsVerticalScrollIndicator={false}
-        data={prayers}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={{ marginVertical: 8, padding: 16, backgroundColor: 'white', borderRadius: 8 }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black' }}>NOMBRE: {item.name}</Text>
-            <Text style={{ fontSize: 16 }}>SITUACION: {item.situation}</Text>
-            <Text onPress={
-                () => {
-                 //   router.push('/screens/OracionCompleta', { oracion: item });
-                    router.push( { pathname: "/screens/OracionCompleta", params: { oracion: item.prayer } });
-                }
-            } style={{ fontSize: 16 , color: 'blue' , fontWeight: 'bold' , opacity: 0.8}}>Ver Oracion Completa</Text>
-            {
-                /**
-                 *  <Text style={{ fontSize: 16 }}>{item.prayer}</Text>
-                 */
-            }
 
-          </View>
+        <View
+        style={{
+        }}
+        >
+        <FlatList
+      // eliminar la simulacion del scroll
+      showsVerticalScrollIndicator={false}
+
+       horizontal={true} // horizontal
+       // eliminar el scroll animacion
+       
+
+       data={categoria}
+      keyExtractor={item => item.id}
+       
+      /*renderItem={({ item }) => (
+       
+          <View style={{ flex: 1, flexDirection: 'row'  }}>
+          <Text style={{fontSize: 18, fontWeight: 'bold', color: 'black' }}>CATEGORIA: {item.title}</Text>
+        </View>
+  
         )}
+        */
+       renderItem={renderrItem}
       />
-    </View>
+        </View>
+
+        <FlatList
+              // eliminar la simulacion del scroll
+                showsVerticalScrollIndicator={false}
+                
+                data={prayers}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                  <View style={{ marginVertical: 8, padding: 16, backgroundColor: 'white', borderRadius: 8 }}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black' }}>NOMBRE: {item.name}</Text>
+                    <Text style={{ fontSize: 16 }}>SITUACION: {item.situation}</Text>
+                    <Text onPress={
+                        () => {
+                        //   router.push('/screens/OracionCompleta', { oracion: item });
+                            router.push( { pathname: "/screens/OracionCompleta", params: { oracion: item.prayer } });
+                        }
+                    } style={{ fontSize: 16 , color: 'blue' , fontWeight: 'bold' , opacity: 0.8}}>Ver Oracion Completa</Text>
+                    {
+                        /**
+                         *  <Text style={{ fontSize: 16 }}>{item.prayer}</Text>
+                         */
+                    }
+
+                  </View>
+                )}
+              />
+        </View>
+      
+
   );
 };
 

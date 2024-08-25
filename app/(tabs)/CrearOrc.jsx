@@ -94,6 +94,7 @@ const CrearOrc = () => {
       case "enfermos":
         oracionTxt = getOracionEnfermos(getIndex, nombre);
         console.log("ORC DESDE MI JSON:", oracionTxt.oracion);
+        savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
 
         setTimeout(() => {
           setModalVisible(true);
@@ -103,14 +104,8 @@ const CrearOrc = () => {
           setFcBtnModal(() => () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
-            router.push({
-              pathname: "/MisOraciones",
-              params: {
-                oracion: oracionTxt.oracion,
-                nombre: nombre,
-                categorias: categoriasOrc,
-              },
-            });
+            //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
+            router.push("/MisOraciones");
           });
         }, 2000);
 
@@ -119,6 +114,7 @@ const CrearOrc = () => {
         console.log("Categorias: ||", categoriasOrc);
         oracionTxt = getOracionDifuntos(getIndex, nombre);
         console.log("ORC DESDE MI JSON DIFUNTOS:", oracionTxt.oracion);
+        savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
 
         setTimeout(() => {
           setModalVisible(true);
@@ -128,14 +124,8 @@ const CrearOrc = () => {
           setFcBtnModal(() => () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
-            router.push({
-              pathname: "/MisOraciones",
-              params: {
-                oracion: oracionTxt.oracion,
-                nombre: nombre,
-                categorias: categoriasOrc,
-              },
-            });
+            //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
+            router.push("/MisOraciones");
           });
         }, 2000);
 

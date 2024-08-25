@@ -158,8 +158,8 @@ const MisOraciones = () => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 16, 
-
+    <View style={{ flex: 1, padding: 26, 
+        backgroundColor: '#f2f0f0',  // color de fondo , gris - claro #f0f0f0
 
      }}>
       <FlatList

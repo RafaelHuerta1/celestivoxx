@@ -15,66 +15,58 @@ import {
 import MisOraciones from "./MisOraciones.jsx";
 import { Picker } from "@react-native-picker/picker";
 import { router } from "expo-router";
-import {getOracionDifuntos, getOracionEnfermos , getOracionAgradecimiento
-
-, getOracionFamilia
-
+import {
+  getOracionDifuntos,
+  getOracionEnfermos,
+  getOracionAgradecimiento,
+  getOracionFamilia,
 } from "../data/oraciones.js";
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { savePrayer } from '../almacenarOracion.js'
-
+import { savePrayer } from "../almacenarOracion.js";
 
 const CrearOrc = () => {
-
-
-
-
-
-
-  const [nombre, setNombre] = useState('');
+  const [nombre, setNombre] = useState("");
   const [intencion, setIntencion] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [txtModal, setTxtModal] = useState("");
   const [txtBtn, setTxtBtn] = useState("Cerrar");
   const [oracion, setOracion] = useState([]);
-  const [categoriasOrc, setCategoriasOrc] = useState( null ); // ?
-  const [fcBtnModal, setFcBtnModal] = useState(() => () => console.log("Modal cerrado por defecto"));
+  const [categoriasOrc, setCategoriasOrc] = useState(null); // ?
+  const [fcBtnModal, setFcBtnModal] = useState(
+    () => () => console.log("Modal cerrado por defecto")
+  );
 
   const limpiarOracion = () => {
     setIntencion("");
     setNombre("");
   };
 
-
   const cerrarModal = () => {
-    
     console.log("cerrar modal");
     setModalVisible(false);
   };
-/**
+  /**
  *     "Enfermos": "Enfermos",
     "Difuntos": "Difuntos",
     "Familia": "Familia",
     "Agradecimiento": "Agradecimiento",
  */
 
-    const categorias = [
-      { label: "Enfermedad", value: "enfermos" },
-      { label: "Difuntos", value: "difuntos" },
-      { label: "Familia", value: "familia" },
-      { label: "Agradecimiento", value: "agradecimiento" },
-    ];
+  const categorias = [
+    { label: "Enfermedad", value: "enfermos" },
+    { label: "Difuntos", value: "difuntos" },
+    { label: "Familia", value: "familia" },
+    { label: "Agradecimiento", value: "agradecimiento" },
+  ];
 
-    const plantillaOracion = (nombre, categoriasOrc) => {
+  const plantillaOracion = (nombre, categoriasOrc) => {
+    let getIndex = Math.floor(Math.random() * 11);
+    console.log(getIndex);
+    let oracionTxt = "";
 
-     
-      let getIndex = Math.floor(Math.random() * 11);
-      console.log(getIndex);
-      let oracionTxt = '';
-
-      /*
+    /*
 
       console.log('Categorias: ||', categoriasOrc)
       console.log('ESTADO INICIAL DE ORACION ||', oracion) //  array vacio
@@ -89,160 +81,139 @@ const CrearOrc = () => {
       console.log('Nombre: ', nombre); // No es undefined
       console.log('Categorias: ', categoriasOrc); // No es undefined
     */
-/**
+    /**
  *    setArtists([
           ...artists,
           { id: nextId++, name: name }
         ]);
  */
 
-      // se me ocurre , utilizar un switch para las categorias y un template string para la oracion
+    // se me ocurre , utilizar un switch para las categorias y un template string para la oracion
 
-      switch (categoriasOrc) {
-        case 'enfermos':
-          oracionTxt = getOracionEnfermos(getIndex , nombre)
-          console.log('ORC DESDE MI JSON:', oracionTxt.oracion);
+    switch (categoriasOrc) {
+      case "enfermos":
+        oracionTxt = getOracionEnfermos(getIndex, nombre);
+        console.log("ORC DESDE MI JSON:", oracionTxt.oracion);
 
-        
-          setTimeout(() => {
-            setModalVisible(true);
-            setTxtModal("Oración generada correctamente");
-            setTxtBtn("ir a mis oraciones");
-            
-            
-            
-            setFcBtnModal(() => () => {
-              setModalVisible(false);
-          //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
-              router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-  
+        setTimeout(() => {
+          setModalVisible(true);
+          setTxtModal("Oración generada correctamente");
+          setTxtBtn("ir a mis oraciones");
+
+          setFcBtnModal(() => () => {
+            setModalVisible(false);
+            //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
+            router.push({
+              pathname: "/MisOraciones",
+              params: {
+                oracion: oracionTxt.oracion,
+                nombre: nombre,
+                categorias: categoriasOrc,
+              },
             });
-  
-  
-          }, 2000);
-        
+          });
+        }, 2000);
 
-        break
-        case 'difuntos':
-          console.log('Categorias: ||', categoriasOrc)
-          oracionTxt = getOracionDifuntos(getIndex, nombre)
-          console.log('ORC DESDE MI JSON DIFUNTOS:', oracionTxt.oracion);
+        break;
+      case "difuntos":
+        console.log("Categorias: ||", categoriasOrc);
+        oracionTxt = getOracionDifuntos(getIndex, nombre);
+        console.log("ORC DESDE MI JSON DIFUNTOS:", oracionTxt.oracion);
 
+        setTimeout(() => {
+          setModalVisible(true);
+          setTxtModal("Oración generada correctamente");
+          setTxtBtn("ir a mis oraciones");
 
-          setTimeout(() => {
-            setModalVisible(true);
-            setTxtModal("Oración generada correctamente");
-            setTxtBtn("ir a mis oraciones");
-            
-            
-            
-            setFcBtnModal(() => () => {
-              setModalVisible(false);
-          //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
-              router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-  
+          setFcBtnModal(() => () => {
+            setModalVisible(false);
+            //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
+            router.push({
+              pathname: "/MisOraciones",
+              params: {
+                oracion: oracionTxt.oracion,
+                nombre: nombre,
+                categorias: categoriasOrc,
+              },
             });
-  
-  
-          }, 2000);
+          });
+        }, 2000);
 
-        break
-        case 'familia':
-          console.log('Categorias: ||', categoriasOrc)
-          oracionTxt = getOracionFamilia(getIndex, nombre)
-          savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
+        break;
+      case "familia":
+        console.log("Categorias: ||", categoriasOrc);
+        oracionTxt = getOracionFamilia(getIndex, nombre);
+        savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
 
-          setTimeout(() => {
-            setModalVisible(true);
-            setTxtModal("Oración generada correctamente");
-            setTxtBtn("ir a mis oraciones");
-            
-            
-            
-            setFcBtnModal(() => () => {
-              setModalVisible(false);
-          //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
+        setTimeout(() => {
+          setModalVisible(true);
+          setTxtModal("Oración generada correctamente");
+          setTxtBtn("ir a mis oraciones");
+
+          setFcBtnModal(() => () => {
+            setModalVisible(false);
+            //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
             //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-                router.push('/MisOraciones');
+            router.push("/MisOraciones");
+          });
+        }, 2000);
+
+        break;
+      case "agradecimiento":
+        console.log("Categorias: ||", categoriasOrc);
+        oracionTxt = getOracionAgradecimiento(getIndex, nombre);
+
+        setTimeout(() => {
+          setModalVisible(true);
+          setTxtModal("Oración generada correctamente");
+          setTxtBtn("ir a mis oraciones");
+
+          setFcBtnModal(() => () => {
+            setModalVisible(false);
+            //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
+            router.push({
+              pathname: "/MisOraciones",
+              params: {
+                oracion: oracionTxt.oracion,
+                nombre: nombre,
+                categorias: categoriasOrc,
+              },
             });
-  
-  
-          }, 2000);
+          });
+        }, 2000);
 
-        break
-        case 'agradecimiento':
-
-          
-          console.log('Categorias: ||', categoriasOrc)
-          oracionTxt = getOracionAgradecimiento(getIndex, nombre)
-
-          setTimeout(() => {
-            setModalVisible(true);
-            setTxtModal("Oración generada correctamente");
-            setTxtBtn("ir a mis oraciones");
-            
-            
-            
-            setFcBtnModal(() => () => {
-              setModalVisible(false);
-          //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
-              router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-  
-            });
-  
-  
-          }, 2000);
-        
-          
-
-
-        break
-        default:
-          console.log('Categorias: ||', categoriasOrc)
-          oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
+        break;
+      default:
+        console.log("Categorias: ||", categoriasOrc);
+        oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
           Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
           Que tu luz ilumine su camino y que tu paz llene su corazón.
           Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
-        break
-      }
+        break;
+    }
 
-    
-     
-    
-      console.log('ESTADO INICIAL DE ORACION 2 ', oracion); // Ahora muestra el array con la nueva oración
-
-
-    };
-
-    // revisar la logica,
-    const creatOrc = () => {
-      if (nombre === '' || nombre == null )  {
-        setModalVisible(true);
-        setTxtModal("Por favor ingresa un nombre e intención");
-      } else {
-       
-        plantillaOracion(nombre, categoriasOrc);
-
-
-        console.log('Oracion: ', oracion); // index 0 -- vacio, despues de la primera oracion si se llena 
-
-        
-
-    };
-
-    
+    console.log("ESTADO INICIAL DE ORACION 2 ", oracion); // Ahora muestra el array con la nueva oración
   };
 
-    useEffect(() => {
-      setFcBtnModal(() => cerrarModal);
-   // plantillaOracion(nombre, categoriasOrc);
-    setCategoriasOrc(categorias[0].value)
-    }, [oracion]);
+  // revisar la logica,
+  const creatOrc = () => {
+    if (nombre === "" || nombre == null) {
+      setModalVisible(true);
+      setTxtModal("Por favor ingresa un nombre e intención");
+    } else {
+      plantillaOracion(nombre, categoriasOrc);
 
+      console.log("Oracion: ", oracion); // index 0 -- vacio, despues de la primera oracion si se llena
+    }
+  };
 
-   // { label: 'Padre Nuestro', value: 'padre nuestro' },
-    
+  useEffect(() => {
+    setFcBtnModal(() => cerrarModal);
+    // plantillaOracion(nombre, categoriasOrc);
+    setCategoriasOrc(categorias[0].value);
+  }, [oracion]);
 
+  // { label: 'Padre Nuestro', value: 'padre nuestro' },
 
   return (
     <View>
@@ -253,39 +224,15 @@ const CrearOrc = () => {
           marginTop: 15,
           marginRight: 25,
         }}
-      >
-        <Button
-          title="Iniciar Sesión"
-          color="#841584"
-          onPress={() => alert("Iniciar Sesión")}
-        />
-      </View>
+      ></View>
 
       <View
         style={{
           justifyContent: "center",
           alignItems: "center",
-          marginTop: 40,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "500",
-            textAlign: "center",
-            margin: 20,
-          }}
-        >
-          Ora de manera personalizada para tus seres queridos y comparte en tus
-          redes sociales.
-        </Text>
-      </View>
-
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 80,
+          alignContent: "center",
+          width: "100%",
+          marginTop: 170,
         }}
       >
         <Text
@@ -293,7 +240,7 @@ const CrearOrc = () => {
             marginBottom: 15,
             textDecorationStyle: "solid",
             textDecorationColor: "black",
-            fontSize: 20,
+            fontSize: 25,
             fontWeight: "400",
           }}
         >
@@ -306,87 +253,94 @@ const CrearOrc = () => {
             height: "auto",
             width: 300,
             minHeight: 40,
-           borderBottomWidth: 1,
+            borderBottomWidth: 1,
             borderBottomColor: "black",
 
             textAlign: "center",
           }}
           placeholder="Nombre"
         />
-          <Text
-                  style={{
-                    marginBottom: 20,
-                    marginTop: 20,
-                    textDecorationStyle: "solid",
-                    textDecorationColor: "black",
-                    fontSize: 20,
-                    fontWeight: "400",
-                  }}
-                >
-                  Elje el tipo de oración:
-                </Text>
-                <Picker
-                selectedValue={categoriasOrc}
-                onValueChange={(itemValue) => setCategoriasOrc(itemValue)}
-                style={{
-                  marginTop: 0,
-                  width: '70%',
-                  height: 'auto',
-                  borderWidth: 2, // Grosor del borde
-                  borderColor: 'black', // Color del borde
-                  borderRadius: 10,
-                  backgroundColor: 'white', // Color de fondo
-                }}
-              >
-
-                            {categorias.map((option) => (
-                                <Picker.Item label={option.label} value={option.value} key={option.value} />
-                            ))}
-                        </Picker>
-
-        <TouchableOpacity
-          onPress={creatOrc}
+        <Text
           style={{
-            backgroundColor: "#841584",
-            width: 300,
-            height: 40,
-            borderRadius: 10,
-            justifyContent: "center",
-            alignItems: "center",
+            marginBottom: 20,
             marginTop: 20,
+            textDecorationStyle: "solid",
+            textDecorationColor: "black",
+            fontSize: 25,
+            fontWeight: "400",
           }}
         >
-          <Text
-            style={{
-              color: "white",
-              fontWeight: "bold",
-            }}
-          >
-            Crear Oración
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={limpiarOracion}
+          Elje el tipo de oración:
+        </Text>
+        <Picker
+          selectedValue={categoriasOrc}
+          onValueChange={(itemValue) => setCategoriasOrc(itemValue)}
           style={{
-            backgroundColor: "#0077B6",
-            width: 300,
-            height: 40,
+            marginTop: 0,
+            width: "70%",
+            height: "auto",
+            borderWidth: 2, // Grosor del borde
+            borderColor: "black", // Color del borde
             borderRadius: 10,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 20,
+            backgroundColor: "white", // Color de fondo
           }}
         >
-          <Text
+          {categorias.map((option) => (
+            <Picker.Item
+              label={option.label}
+              value={option.value}
+              key={option.value}
+            />
+          ))}
+        </Picker>
+
+        <View>
+          <TouchableOpacity
+            onPress={creatOrc}
             style={{
-              color: "white",
-              fontWeight: "bold",
+              backgroundColor: "#841584",
+              width: 300,
+              height: 50,
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 20,
             }}
           >
-            Orar De nuevo
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                fontSize: 20,
+              }}
+            >
+              Crear Oración
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={limpiarOracion}
+            style={{
+              backgroundColor: "#0077B6",
+              width: 300,
+              height: 50,
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 20,
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                fontSize: 20,
+              }}
+            >
+              Orar De nuevo
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View
@@ -408,7 +362,7 @@ const CrearOrc = () => {
       </View>
     </View>
   );
-    };
+};
 
 export default CrearOrc;
 

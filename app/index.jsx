@@ -24,9 +24,9 @@ const App = () => {
             textAlign: 'center',
         }}
         > 
-        Crea oraciones personalizadas para tus seres queridos.  
-        Ingresa su nombre e intención, y 
-        nosotros generaremos una oración especial.
+      Crea una oración personalizada para tus seres queridos y compártela con amor en tus redes sociales.
+
+
         </Text>
 
 

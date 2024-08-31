@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
+import ExternalLink from '../components/LinksDinamicos';
 
 const Configuracion = () => {
     return (
@@ -15,8 +16,10 @@ const Configuracion = () => {
                     borderBottomWidth: 1,
                 }}
             >
-                Gracias por utilizar nuestra aplicación, celestiavox, proximamente agregaremos más funcionalidades
+                Gracias por utilizar nuestra aplicación, celestilavox, proximamente agregaremos más funcionalidades
             </Text>
+
+            <ExternalLink url='https://palabra-de-dioss.blogspot.com/2024/08/politicas-de-privacidad-de-celestialvox.html'>Politicas de privacidad</ExternalLink>
            
         </View>
     );

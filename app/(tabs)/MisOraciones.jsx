@@ -290,7 +290,7 @@ const deletePrayer = async (prayerId) => {
                         style={{ flexDirection: 'row', justifyContent: 'flex-end'  }} 
                       >
                             <Text
-                          style={{ fontSize: 20 , color: 'red' , fontWeight: 'bold' , hover: 'pointer' }}
+                          style={{ fontSize:30 , color: 'red' , fontWeight: 'bold' , hover: 'pointer' }}
                           onPress={() => deletePrayer(item.id)}
                           >X</Text>
                       </View>

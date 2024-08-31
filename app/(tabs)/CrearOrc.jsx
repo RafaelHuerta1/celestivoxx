@@ -22,9 +22,14 @@ import {
   getOracionFamilia,
 } from "../data/oraciones.js";
 
+//import { AdMobBanner, AdMobInterstitial, AdMobRewarded } from 'expo-ads-admob';
+
+
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { savePrayer } from "../almacenarOracion.js";
+import InlineAd from "../InlineAd.jsx";
 
 const CrearOrc = () => {
   const [nombre, setNombre] = useState("");
@@ -152,6 +157,7 @@ const CrearOrc = () => {
       case "agradecimiento":
         console.log("Categorias: ||", categoriasOrc);
         oracionTxt = getOracionAgradecimiento(getIndex, nombre);
+        savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
 
         setTimeout(() => {
           setModalVisible(true);
@@ -161,16 +167,11 @@ const CrearOrc = () => {
           setFcBtnModal(() => () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
-            router.push({
-              pathname: "/MisOraciones",
-              params: {
-                oracion: oracionTxt.oracion,
-                nombre: nombre,
-                categorias: categoriasOrc,
-              },
-            });
+            //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
+            router.push("/MisOraciones");
           });
         }, 2000);
+
 
         break;
       default:
@@ -204,17 +205,12 @@ const CrearOrc = () => {
   }, [oracion]);
 
   // { label: 'Padre Nuestro', value: 'padre nuestro' },
+// Initialize Google Mobile Ads SDK
 
   return (
     <View>
-      <View
-        style={{
-          justifyContent: "flex-end",
-          alignItems: "flex-end",
-          marginTop: 15,
-          marginRight: 25,
-        }}
-      ></View>
+      
+
 
       <View
         style={{
@@ -358,6 +354,11 @@ export default CrearOrc;
 
 const styles = StyleSheet.create({
   // Estilo para centrar el contenido del modal
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",

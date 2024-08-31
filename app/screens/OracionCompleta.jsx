@@ -66,64 +66,78 @@ function OracionCompleta() {
       }
 
 
-    <TouchableOpacity
-      onPress={onShare}
-      style={{
-        backgroundColor: "#841584",
-        width: 300,
-        height: 50,
-        borderRadius: 10,
-        margin: 20,
+      <View
+       style={{
         justifyContent: "center",
+        alignItems: "center",
+        alignContent: "center"
+
       }}
-    >
-      {/* Your button content here */}
-
-      <Text
-        style={{
-          color: "white",
-          textAlign: "center",
-          fontSize: 20,
-          marginTop: 5,
-        }}
       >
-        Compartir Oracion
-      </Text>
+          <TouchableOpacity
+          onPress={onShare}
+          style={{
+            backgroundColor: "#841584",
+            width: 300,
+            height: 50,
+            borderRadius: 10,
+            margin: 20,
+            justifyContent: "center",
+        
+          }}
+        >
+          {/* Your button content here */}
+
+          <Text
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontSize: 20,
+              marginTop: 5,
+            }}
+          >
+            Compartir Oracion
+          </Text>
 
 
-    </TouchableOpacity>
-    
-    <TouchableOpacity
-      onPress={
-        () => {
-          console.log('Regresar a mis oraciones');
-          router.push('MisOraciones');
-        }
-      }
-      style={{
-        backgroundColor: "#0077B6", // color azul del boton anterior #841584
-        width: 300,
-        height: 50,
-        borderRadius: 10,
-        margin: 20,
-        justifyContent: "center",
-      }}
-    >
-      {/* Your button content here */}
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+          onPress={
+            () => {
+              console.log('Regresar a mis oraciones');
+              router.push('MisOraciones');
+            }
+          }
+          style={{
+            backgroundColor: "#0077B6", // color azul del boton anterior #841584
+            width: 300,
+            height: 50,
+            borderRadius: 10,
+            margin: 20,
+            justifyContent: "center",
+          }}
+        >
+          {/* Your button content here */}
 
-      <Text
-        style={{
-          color: "white",
-          textAlign: "center",
-          fontSize: 20,
-          marginTop: 5,
-        }}
-      >
-        Regresar a mis oraciones
-      </Text>
+          <Text
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontSize: 20,
+              marginTop: 5,
+            }}
+          >
+            Regresar a mis oraciones
+          </Text>
 
 
-    </TouchableOpacity>
+        </TouchableOpacity>
+
+  
+      </View>
+            {/** agregare verison 2, reproducion de voz */}
+
      </View>
   </ScrollView> 
     </>
@@ -140,8 +154,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 25,
-    borderWidth: 1,
-    borderTopLeftRadius: 20,
+    borderWidth: 2,
+    borderRadius: 20,
   }
 });
 

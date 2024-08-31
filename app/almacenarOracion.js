@@ -1,12 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import uuid from 'react-native-uuid';
 
 // Función para guardar una oración localmente
 export const savePrayer = async (name, situation, prayer) => {
   try {
     const storedPrayers = await AsyncStorage.getItem('prayers');
     const prayers = storedPrayers ? JSON.parse(storedPrayers) : [];
+    const newId = uuid.v4();
+    console.log(newId);  // Algo como "110e8400-e29b-11d4-a716-446655440000"
 
     const newPrayer = {
+      id: newId, // genera un ID único
       name,
       situation,
       prayer,

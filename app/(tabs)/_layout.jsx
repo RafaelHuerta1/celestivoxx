@@ -9,7 +9,7 @@ export default function Layout() {
         name="CrearOrc"
         options={{
           title: 'Espacio De Oracion',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="heart" color={color} />,
           
         }}
        
@@ -18,14 +18,14 @@ export default function Layout() {
         name="MisOraciones"
         options={{
           title: 'Mis Oraciones',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="book" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="Perfil"
+        name="Configuracion"
         options={{
-          title: 'Profile',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
+          title: 'Configuracion',
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
         }}
       />
     </Tabs>

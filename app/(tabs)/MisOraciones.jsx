@@ -6,6 +6,7 @@ import { oracionCompleta } from "../logica/index.js";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getPrayers } from '../almacenarOracion.js'
+//import { v4 as uuidv4 } from 'uuid'; // asegúrate de instalar esta librería con npm install uuid
 
 
 /*
@@ -139,15 +140,22 @@ const MisOraciones = () => {
     console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , setPrayers);
 
     //'TODOS', 'ENFERMOS' , 'DIFUNTOS' , 'FAMILIA' , 'AGRADECIMIENTO'
+
+    /*
+
+    FUNCIONN VERSION 2
+
   const categoria = [
     
-    {id : '1', title: 'TODOS'},
-    {id : '2', title:'ENFERMOS'},
-    {id : '3', title:'DIFUNTOS'},
-    {id : '4', title:'FAMILIA'},
-    {id : '5', title:'AGRADECIMIENTO'},
+  //  {id : '1', title: 'TODOS'},
+    {id : '1', title:'ENFERMOS'},
+    {id : '2', title:'DIFUNTOS'},
+    {id : '3', title:'FAMILIA'},
+    {id : '4', title:'AGRADECIMIENTO'},
 
   ]
+
+  */
 
 
   useEffect(() => {
@@ -162,21 +170,61 @@ const MisOraciones = () => {
   const getPrayers = async () => {
     try {
       const storedPrayers = await AsyncStorage.getItem('prayers');
+
+     // UN OBJETO GUARDA LAS ORACIONES, BUSCAR POR INTENCION,
+      // UNA INTENCION PUEDE TENER VARIAS ORACIONES
+
+    //  console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , storedPrayers);
+    
+
+
+
       return storedPrayers ? JSON.parse(storedPrayers) : [];
     } catch (error) {
       console.error('Error obteniendo las oraciones:', error);
       return [];
     }
   };
+// situation, buscar por situacion
 
+const getPrayersBySituation = async (situation) => {
+   try {
+      const storedPrayers = await AsyncStorage.getItem('prayers');
+      const prayers = storedPrayers ? JSON.parse(storedPrayers) : [];
+     // console.log('orc local situacion', prayers);
+      return prayers.filter(prayer => prayer.situation === situation);
+    }
+    catch (error) {
+      console.error('Error obteniendo las oraciones:', error);
+      return [];
+    }
+}
+
+// Función para eliminar una oración
+const deletePrayer = async (prayerId) => {
+  try {
+    const storedPrayers = await AsyncStorage.getItem('prayers');
+    let prayers = storedPrayers ? JSON.parse(storedPrayers) : [];
+    
+    // Filtra las oraciones para eliminar la que coincida con el ID
+    prayers = prayers.filter(prayer => prayer.id !== prayerId);
+
+    // Guarda la nueva lista de oraciones
+    await AsyncStorage.setItem('prayers', JSON.stringify(prayers));
+  } catch (error) {
+    console.error('Error eliminando la oración:', error);
+  }
+};
 
   const renderrItem = ( {item} ) => {
+  //console.log(item.title);
       return(
            <View
-            style={{  borderWidth: 1, borderColor: 'black', margin: 15, padding: 10, borderRadius: 10,
+            style={{  borderRadius: 12, margin: 15, padding: 10,
               backgroundColor: 'white'
 
               }}
+              onpress={ getPrayersBySituation(item.title) }
            >
               <Text
                style={{fontSize: 18, fontWeight: 'bold', color: 'grey' }}
@@ -186,13 +234,14 @@ const MisOraciones = () => {
 
   }
 
-  return (
-    <View style={{ flex: 1, padding: 16, 
-        backgroundColor: '#f2f0f0',  // color de fondo , gris - claro #f0f0f0
+  /**  TENEMOS LA UI, PARA LA PROX VERSION PARA FILTRAR
+   * 
+   *     <View
+        onpress={() => {
+            console.log('CATEGORIA SELECCIONADA');
+            
 
-     }}>
-
-        <View
+        }}
         style={{
         }}
         >
@@ -214,10 +263,19 @@ const MisOraciones = () => {
         </View>
   
         )}
-        */
-       renderItem={renderrItem}
-      />
-        </View>
+      
+        renderItem={renderrItem}
+        />
+          </View>
+   */
+
+  return (
+    <View style={{ flex: 1, padding: 16, 
+        backgroundColor: '#f2f0f0',  // color de fondo , gris - claro #f0f0f0
+
+     }}>
+      
+    
 
         <FlatList
               // eliminar la simulacion del scroll
@@ -226,20 +284,31 @@ const MisOraciones = () => {
                 data={prayers}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
-                  <View style={{ marginVertical: 8, padding: 16, backgroundColor: 'white', borderRadius: 8 }}>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black' }}>NOMBRE: {item.name}</Text>
-                    <Text style={{ fontSize: 16 }}>SITUACION: {item.situation}</Text>
+                  <View style={{ marginVertical: 12, padding: 16, backgroundColor: 'white', borderRadius: 8 }}>
+
+                      <View
+                        style={{ flexDirection: 'row', justifyContent: 'flex-end'  }} 
+                      >
+                            <Text
+                          style={{ fontSize: 20 , color: 'red' , fontWeight: 'bold' , hover: 'pointer' }}
+                          onPress={() => deletePrayer(item.id)}
+                          >X</Text>
+                      </View>
+
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black', marginTop:10 }}>NOMBRE: {item.name}</Text>
+                    <Text style={{ fontSize: 16, marginTop:10 }}>SITUACION: {item.situation}</Text>
                     <Text onPress={
                         () => {
                         //   router.push('/screens/OracionCompleta', { oracion: item });
                             router.push( { pathname: "/screens/OracionCompleta", params: { oracion: item.prayer } });
+                            
                         }
-                    } style={{ fontSize: 16 , color: 'blue' , fontWeight: 'bold' , opacity: 0.8}}>Ver Oracion Completa</Text>
-                    {
-                        /**
-                         *  <Text style={{ fontSize: 16 }}>{item.prayer}</Text>
-                         */
-                    }
+                    } 
+                    style={{ fontSize: 16 , color: 'blue' , fontWeight: 'bold' , opacity: 0.8 , marginTop:10, cursor: "pointer"}}>Ver Oracion Completa</Text>
+                   
+
+                  
+
 
                   </View>
                 )}

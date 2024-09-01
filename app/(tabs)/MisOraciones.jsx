@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getPrayers } from '../almacenarOracion.js'
 //import { v4 as uuidv4 } from 'uuid'; // asegúrate de instalar esta librería con npm install uuid
+import InlineAd from "../InlineAd.jsx";
 
 
 /*
@@ -227,7 +228,7 @@ const deletePrayer = async (prayerId) => {
               onpress={ getPrayersBySituation(item.title) }
            >
               <Text
-               style={{fontSize: 18, fontWeight: 'bold', color: 'grey' }}
+               style={{fontSize: 22, fontWeight: 'bold', color: 'grey' }}
               > {item.title} </Text>
            </View>
       )
@@ -270,51 +271,38 @@ const deletePrayer = async (prayerId) => {
    */
 
   return (
-    <View style={{ flex: 1, padding: 16, 
-        backgroundColor: '#f2f0f0',  // color de fondo , gris - claro #f0f0f0
-
-     }}>
-      
     
-
-        <FlatList
-              // eliminar la simulacion del scroll
-                showsVerticalScrollIndicator={false}
-                
-                data={prayers}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                  <View style={{ marginVertical: 12, padding: 16, backgroundColor: 'white', borderRadius: 8 }}>
-
-                      <View
-                        style={{ flexDirection: 'row', justifyContent: 'flex-end'  }} 
-                      >
-                            <Text
-                          style={{ fontSize:30 , color: 'red' , fontWeight: 'bold' , hover: 'pointer' }}
-                          onPress={() => deletePrayer(item.id)}
-                          >X</Text>
-                      </View>
-
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black', marginTop:10 }}>NOMBRE: {item.name}</Text>
-                    <Text style={{ fontSize: 16, marginTop:10 }}>SITUACION: {item.situation}</Text>
-                    <Text onPress={
-                        () => {
-                        //   router.push('/screens/OracionCompleta', { oracion: item });
-                            router.push( { pathname: "/screens/OracionCompleta", params: { oracion: item.prayer } });
-                            
-                        }
-                    } 
-                    style={{ fontSize: 16 , color: 'blue' , fontWeight: 'bold' , opacity: 0.8 , marginTop:10, cursor: "pointer"}}>Ver Oracion Completa</Text>
-                   
-
-                  
-
-
-                  </View>
-                )}
-              />
+    <View
+     style={{
+        width: '100%',
+        height: '100%',
+       // marginBottom: 20,
+     }}
+    >
+            <InlineAd />
+            <ScrollView style={{ flex: 1, backgroundColor: '#f2f0f0', padding: 16,   }}>
+      {prayers.map((item, index) => (
+        <View key={index} style={{ marginVertical: 14, padding: 10, backgroundColor: 'white', borderRadius: 8, marginTop:22}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <Text
+              style={{ fontSize: 30, color: 'red', fontWeight: 'bold' }}
+              onPress={() => deletePrayer(item.id)}
+            >
+              X
+            </Text>
+          </View>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black', marginTop: 10 }}>NOMBRE: {item.name}</Text>
+          <Text style={{ fontSize: 16, marginTop: 10 }}>SITUACION: {item.situation}</Text>
+          <Text
+            onPress={() => router.push({ pathname: "/screens/OracionCompleta", params: { oracion: item.prayer } })}
+            style={{ fontSize: 16, color: 'blue', fontWeight: 'bold', opacity: 0.8, marginTop: 10, cursor: 'pointer' }}
+          >
+            Ver Oracion Completa
+          </Text>
         </View>
-      
+      ))}
+            </ScrollView>
+    </View>
 
   );
 };

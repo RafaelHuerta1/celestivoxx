@@ -1,12 +1,24 @@
-import React from 'react';
+import React, {useEffect}   from 'react';
 import {View, Text, Image, TouchableOpacity, TextInput} from 'react-native';
 import { Link } from 'expo-router';
+import mobileAds from 'react-native-google-mobile-ads';
 
 
 
-
+import 'expo-dev-client';
 
 const App = () => {
+
+
+  // Initialize Google Mobile Ads SDK
+useEffect(() => {
+  mobileAds()
+  .initialize()
+  .then(adapterStatuses => {
+    // Initialization complete!
+  });
+}, []);
+
   return (
     <View
 
@@ -40,7 +52,7 @@ const App = () => {
         >
         <Image
           source={{
-            uri: 'https://tse1.mm.bing.net/th?id=OIG1.klRAzzhOloAPoXegTbxF&pid=ImgGn',
+            uri: 'https://tse1.mm.bing.net/th?id=OIG1.klRAzzhOloAPoXegTbxF&pid=ImgGn', // tarda mucho en redenrizar,,
           }}
           style={{width: '80%', height: 400, borderRadius: 50}}
         />

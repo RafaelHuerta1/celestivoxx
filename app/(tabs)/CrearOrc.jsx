@@ -108,7 +108,7 @@ const CrearOrc = () => {
         console.log("ORC DESDE MI JSON:", oracionTxt.oracion);
         savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
 
-        setTimeout(() => {
+        setTimeout(() => {  
           setModalVisible(true);
           setTxtModal("Oración generada correctamente");
           setTxtBtn("ir a mis oraciones");
@@ -117,13 +117,10 @@ const CrearOrc = () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
             //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
- 
             if (interAdRef.current) {
               interAdRef.current.showAd();
             }
- 
             router.push("/MisOraciones");
-        
           });
         }, 2000);
 
@@ -133,8 +130,9 @@ const CrearOrc = () => {
         oracionTxt = getOracionDifuntos(getIndex, nombre);
         console.log("ORC DESDE MI JSON DIFUNTOS:", oracionTxt.oracion);
         savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
+      
 
-        setTimeout(() => {
+        setTimeout(() => {  
           setModalVisible(true);
           setTxtModal("Oración generada correctamente");
           setTxtBtn("ir a mis oraciones");
@@ -143,13 +141,10 @@ const CrearOrc = () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
             //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-            
             if (interAdRef.current) {
               interAdRef.current.showAd();
             }
-            
             router.push("/MisOraciones");
-            
           });
         }, 2000);
 
@@ -159,7 +154,7 @@ const CrearOrc = () => {
         oracionTxt = getOracionFamilia(getIndex, nombre);
         savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
 
-        setTimeout(() => {
+        setTimeout(() => {  
           setModalVisible(true);
           setTxtModal("Oración generada correctamente");
           setTxtBtn("ir a mis oraciones");
@@ -174,14 +169,13 @@ const CrearOrc = () => {
             router.push("/MisOraciones");
           });
         }, 2000);
-
         break;
       case "agradecimiento":
         console.log("Categorias: ||", categoriasOrc);
         oracionTxt = getOracionAgradecimiento(getIndex, nombre);
         savePrayer(nombre, categoriasOrc, oracionTxt.oracion);
 
-        setTimeout(() => {
+        setTimeout(() => {  
           setModalVisible(true);
           setTxtModal("Oración generada correctamente");
           setTxtBtn("ir a mis oraciones");
@@ -195,7 +189,7 @@ const CrearOrc = () => {
             }
             router.push("/MisOraciones");
           });
-        }, 2000);
+        }, 2000); 
 
 
         break;
@@ -216,7 +210,9 @@ const CrearOrc = () => {
     if (nombre === "" || nombre == null) {
       setModalVisible(true);
       setTxtModal("Por favor ingresa un nombre e intención");
-          
+      if (interAdRef.current) {
+        interAdRef.current.showAd();
+      }
     } else {
       plantillaOracion(nombre, categoriasOrc);
 

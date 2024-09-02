@@ -1,5 +1,4 @@
 import React, { useEffect, useState, forwardRef, useImperativeHandle } from 'react';
-import { Button } from 'react-native';
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 
 const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-3715029693544325~1748215103';
@@ -12,15 +11,27 @@ const InterAd = forwardRef((props, ref) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+    const loadAd = () => {
+      interstitial.load();
+    };
+
+    const unsubscribeLoaded = interstitial.addAdEventListener(AdEventType.LOADED, () => {
       setLoaded(true);
     });
 
+    const unsubscribeClosed = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
+      setLoaded(false);
+      loadAd(); // Reload the ad after it has been closed
+    });
+
     // Start loading the interstitial straight away
-    interstitial.load();
+    loadAd();
 
     // Unsubscribe from events on unmount
-    return unsubscribe;
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeClosed();
+    };
   }, []);
 
   useImperativeHandle(ref, () => ({

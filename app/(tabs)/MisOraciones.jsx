@@ -279,7 +279,8 @@ const deletePrayer = async (prayerId) => {
        // marginBottom: 20,
      }}
     >
-            <InlineAd />
+          <InlineAd />
+          
             <ScrollView style={{ flex: 1, backgroundColor: '#f2f0f0', padding: 16,   }}>
       {prayers.map((item, index) => (
         <View key={index} style={{ marginVertical: 14, padding: 10, backgroundColor: 'white', borderRadius: 8, marginTop:22}}>

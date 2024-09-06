@@ -29,13 +29,14 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { savePrayer } from "../almacenarOracion.js";
+import {InterAd} from "../InterAd.jsx";
 import InlineAd from "../InlineAd.jsx";
-import InterAd from "../InterAd.js";
 
-const CrearOrc = () => {
 
-  const interAdRef = useRef();
 
+function CrearOraciones() {
+
+  const { showAd, loaded  } = InterAd(); // Importa la lógica del anuncio
 
 
 
@@ -117,9 +118,8 @@ const CrearOrc = () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
             //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-            if (interAdRef.current) {
-              interAdRef.current.showAd();
-            }
+            showAd();
+
             router.push("/MisOraciones");
           });
         }, 2000);
@@ -141,9 +141,7 @@ const CrearOrc = () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
             //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-            if (interAdRef.current) {
-              interAdRef.current.showAd();
-            }
+            showAd();
             router.push("/MisOraciones");
           });
         }, 2000);
@@ -163,9 +161,7 @@ const CrearOrc = () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
             //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-            if (interAdRef.current) {
-              interAdRef.current.showAd();
-            }
+            showAd();
             router.push("/MisOraciones");
           });
         }, 2000);
@@ -184,9 +180,7 @@ const CrearOrc = () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
             //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-            if (interAdRef.current) {
-              interAdRef.current.showAd();
-            }
+            showAd();
             router.push("/MisOraciones");
           });
         }, 2000); 
@@ -210,12 +204,11 @@ const CrearOrc = () => {
     if (nombre === "" || nombre == null) {
       setModalVisible(true);
       setTxtModal("Por favor ingresa un nombre e intención");
-      if (interAdRef.current) {
-        interAdRef.current.showAd();
-      }
+     // showAd();
+
     } else {
       plantillaOracion(nombre, categoriasOrc);
-
+     
       console.log("Oracion: ", oracion); // index 0 -- vacio, despues de la primera oracion si se llena
     }
   };
@@ -232,8 +225,7 @@ const CrearOrc = () => {
   return (
     <View>
 
-        <InlineAd />
-
+      <InlineAd />
      
       <View
         style={{
@@ -364,17 +356,16 @@ const CrearOrc = () => {
           <View style={styles.centeredView}>
             <View style={styles.modalInfoText}>
               <Text>{txtModal}</Text>
-              <Button title={txtBtn} onPress={fcBtnModal} />
+              <Button title={txtBtn} onPress={fcBtnModal}  />
             </View>
           </View>
         </Modal>
       </View>
-      <InterAd ref={interAdRef} />
     </View>
   );
 };
 
-export default CrearOrc;
+export default CrearOraciones;
 
 const styles = StyleSheet.create({
   // Estilo para centrar el contenido del modal

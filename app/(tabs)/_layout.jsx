@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
       <Tabs.Screen
-        name="Pruieba"
+        name="CrearOraciones"
         options={{
           title: 'Espacio de Oracion',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,

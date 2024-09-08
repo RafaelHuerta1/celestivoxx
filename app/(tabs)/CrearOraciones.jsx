@@ -38,7 +38,7 @@ function CrearOraciones() {
 
   const { showAd, loaded  } = InterAd(); // Importa la lógica del anuncio
 
-
+  console.log(showAd , loaded)
 
   const [nombre, setNombre] = useState("");
   const [intencion, setIntencion] = useState("");
@@ -60,12 +60,6 @@ function CrearOraciones() {
     console.log("cerrar modal");
     setModalVisible(false);
   };
-  /**
- *     "Enfermos": "Enfermos",
-    "Difuntos": "Difuntos",
-    "Familia": "Familia",
-    "Agradecimiento": "Agradecimiento",
- */
 
   const categorias = [
     { label: "Enfermedad", value: "enfermos" },
@@ -79,27 +73,6 @@ function CrearOraciones() {
     console.log(getIndex);
     let oracionTxt = "";
 
-    /*
-
-      console.log('Categorias: ||', categoriasOrc)
-      console.log('ESTADO INICIAL DE ORACION ||', oracion) //  array vacio
-      const oracionTxt = `Dios todopoderoso, te pido por ${nombre} que se encuentra ${categoriasOrc}.
-      Que tu amor y tu misericordia lo acompañen en este momento de dificultad.
-      Que tu luz ilumine su camino y que tu paz llene su corazón.
-      Te lo pido en el nombre de Jesús, tu hijo amado. Amén.`;
-
-
-    
-      console.log('Oracion: ', oracionTxt); // No es undefined
-      console.log('Nombre: ', nombre); // No es undefined
-      console.log('Categorias: ', categoriasOrc); // No es undefined
-    */
-    /**
- *    setArtists([
-          ...artists,
-          { id: nextId++, name: name }
-        ]);
- */
 
     // se me ocurre , utilizar un switch para las categorias y un template string para la oracion
 
@@ -196,7 +169,7 @@ function CrearOraciones() {
         break;
     }
 
-    console.log("ESTADO INICIAL DE ORACION 2 ", oracion); // Ahora muestra el array con la nueva oración
+   // console.log("ESTADO INICIAL DE ORACION 2 ", oracion); // Ahora muestra el array con la nueva oración
   };
 
   // revisar la logica,
@@ -209,7 +182,7 @@ function CrearOraciones() {
     } else {
       plantillaOracion(nombre, categoriasOrc);
      
-      console.log("Oracion: ", oracion); // index 0 -- vacio, despues de la primera oracion si se llena
+  //    console.log("Oracion: ", oracion); // index 0 -- vacio, despues de la primera oracion si se llena
     }
   };
 

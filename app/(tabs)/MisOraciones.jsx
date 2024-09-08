@@ -9,7 +9,6 @@ import { getPrayers } from '../almacenarOracion.js'
 //import { v4 as uuidv4 } from 'uuid'; // asegúrate de instalar esta librería con npm install uuid
 import InlineAd from "../InlineAd.jsx";
 
-
 /*
 
 const MisOraciones = () => { 
@@ -137,6 +136,7 @@ const styles = StyleSheet.create({
 
 const MisOraciones = () => {
   const [prayers, setPrayers] = useState([]);
+  //const { showAd, loaded  } = InterAd(); // Importa la lógica del anuncio
 
     console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , setPrayers);
 
@@ -270,6 +270,11 @@ const deletePrayer = async (prayerId) => {
           </View>
    */
 
+          const adInterGo = () => {
+            console.log('AD INTER GO');
+            showAd();
+          }
+
   return (
     
     <View
@@ -296,6 +301,7 @@ const deletePrayer = async (prayerId) => {
           <Text style={{ fontSize: 16, marginTop: 10 }}>SITUACION: {item.situation}</Text>
           <Text
             onPress={() => router.push({ pathname: "/screens/OracionCompleta", params: { oracion: item.prayer } })}
+         //onPress={adInterGo(item)}
             style={{ fontSize: 16, color: 'blue', fontWeight: 'bold', opacity: 0.8, marginTop: 10, cursor: 'pointer' }}
           >
             Ver Oracion Completa

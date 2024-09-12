@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image , ScrollView , StyleSheet} from 'react-native';
 import { Link } from 'expo-router';
 import mobileAds from 'react-native-google-mobile-ads';
 //import registerNNPushToken from 'native-notify';
@@ -28,54 +28,60 @@ const App = () => {
 }, []);
 
 
-  return (
-    <View>
-
-      <View
-        style={{margin:33}}
-      >
-         <Text
-         style={{fontSize: 30, textAlign: 'center', padding:12 , lineHeight:44}}
-         
-         >
-         Crea oraciones personalizadas para tus seres queridos y comparte palabras de aliento en las redes sociales. 
-          {'\n'}
-         Nuestra aplicación te ayuda a conectarte con quienes más te importan a través de la fe y el amor. 
-         </Text>
-
-          <View>
-          </View>
-
-      </View>
-
-
-      <Link href="/CrearOraciones" asChild>
-        <TouchableOpacity
-          style={{
-            backgroundColor: '#03045E',
-             width: 300,
-            alignSelf: 'center',
-            borderRadius: 10,
-            marginTop: 50,
-          }}
-        >
-          <Text
-            style={{
-              color: 'white',
-              fontSize: 20,
-              fontWeight: 'bold',
-              textAlign: 'center',
-              padding: 15,
-      
-            }}
-          >
-            Crear oración
-          </Text>
-        </TouchableOpacity>
-      </Link>
+return (
+  <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={true}>
+    <View style={styles.textContainer}>
+      <Text style={styles.text}>
+        Crea oraciones personalizadas para tus seres queridos y comparte palabras de aliento en las redes sociales. 
+        {'\n'}
+        Nuestra aplicación te ayuda a conectarte con quienes más te importan a través de la fe y el amor. 
+      </Text>
     </View>
-  );
+
+    <Link href="/CrearOraciones" asChild>
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>
+          Crear oración
+        </Text>
+      </TouchableOpacity>
+    </Link>
+  </ScrollView>
+);
 };
+
+const styles = StyleSheet.create({
+scrollViewContent: {
+  flexGrow: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingVertical: 20,
+},
+textContainer: {
+  width: 300,
+  marginTop: 10,
+  marginBottom: 30,
+},
+text: {
+  fontSize: 30,
+  textAlign: 'center',
+  padding: 12,
+  lineHeight: 44,
+},
+button: {
+  backgroundColor: '#03045E',
+  width: 300,
+  alignSelf: 'center',
+  borderRadius: 10,
+  marginTop: 0,
+},
+buttonText: {
+  color: 'white',
+  fontSize: 20,
+  fontWeight: 'bold',
+  textAlign: 'center',
+  padding: 15,
+},
+});
 
 export default App;
 

@@ -45,10 +45,6 @@ function OracionCompleta() {
     }
   };
 
-  useEffect(() => {
-    console.log('carganod ad,,')
-    showAd();
-  }, [loaded]);
 
   return (
 

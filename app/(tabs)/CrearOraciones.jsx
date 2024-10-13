@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -29,16 +29,43 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { savePrayer } from "../almacenarOracion.js";
-import {InterAd} from "../InterAd.jsx";
+//import {InterAd} from "../InterAd.jsx";
 import InlineAd from "../InlineAd.jsx";
 
 
+import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-3715029693544325/6561687967';
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing'],
+});
 
 function CrearOraciones() {
+  const [loaded, setLoaded] = useState(false);
 
-  const { showAd, loaded  } = InterAd(); // Importa la lógica del anuncio
+/*
+  const [loaded, setLoaded] = useState(false);
 
-  console.log(showAd , loaded)
+  console.log("LOADED", loaded);
+
+  useEffect(() => {
+    const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+      setLoaded(true);
+    });
+
+    // Start loading the interstitial straight away
+    interstitial.load();
+
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, []);
+
+  // No advert ready to show yet
+  if (!loaded) {
+    return null;
+  }
+*/
 
   const [nombre, setNombre] = useState("");
   const [intencion, setIntencion] = useState("");
@@ -91,7 +118,7 @@ function CrearOraciones() {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
             //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
-            showAd();
+            interstitial.show();
 
             router.push("/MisOraciones");
           });
@@ -152,9 +179,9 @@ function CrearOraciones() {
           setFcBtnModal(() => () => {
             setModalVisible(false);
             //    router.push({'/MisOraciones', { oracion: oracion , nombre: nombre, categorias: categoriasOrc }});
-            //  router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
+          router.push({ pathname: "/MisOraciones", params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
             showAd();
-            router.push("/MisOraciones");
+            //router.push("/MisOraciones");
           });
         }, 2000); 
 
@@ -187,14 +214,52 @@ function CrearOraciones() {
   };
 
   useEffect(() => {
-    setFcBtnModal(() => cerrarModal);
-    // plantillaOracion(nombre, categoriasOrc);
-    setCategoriasOrc(categorias[0].value);
-  }, [oracion]);
+    const unsubscribeLoaded = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+      console.log('Interstitial ad loaded');
+      setLoaded(true);
+    });
+
+    const unsubscribeError = interstitial.addAdEventListener(AdEventType.ERROR, (error) => {
+      console.error('Interstitial ad failed to load: ', error);
+      setLoaded(false);
+    });
+
+    const unsubscribeClosed = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
+      console.log('Interstitial ad closed');
+      setLoaded(false); // Establece loaded a false hasta que el nuevo anuncio esté cargado
+      interstitial.load(); // Recarga el anuncio cuando se cierra
+    });
+
+    // Carga el anuncio inicialmente
+    interstitial.load();
+
+    // Unsubscribe from events on unmount
+    return () => {
+      unsubscribeLoaded();
+      unsubscribeError();
+      unsubscribeClosed();
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log('effect #1')
+    //setFcBtnModal(() => cerrarModal);
+  
+      console.log('Oración existe:', oracion);
+      // Si ya hay una oración, puedes ejecutar tu lógica
+      setCategoriasOrc(categorias[0].value);
+ 
+  }, []);
 
   // { label: 'Padre Nuestro', value: 'padre nuestro' },
 // Initialize Google Mobile Ads SDK
-
+const showAd = () => {
+  if (loaded) {
+    interstitial.show();
+  } else {
+    console.log('Interstitial ad is not loaded yet');
+  }
+};
   return (
     <View>
 

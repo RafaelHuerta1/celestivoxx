@@ -133,9 +133,56 @@ const styles = StyleSheet.create({
 
   */
 
+  import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 
+
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-3715029693544325/5823271037'; // Reemplaza con tu ID real
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing'], // Agrega tus palabras clave relevantes aquí
+});
+
+// params: { oracion: oracionTxt.oracion , nombre: nombre, categorias: categoriasOrc } });
 const MisOraciones = () => {
+
+
+  const [loaded, setLoaded] = useState(false);
   const [prayers, setPrayers] = useState([]);
+
+
+  const { oracion, nombre, categorias } = useLocalSearchParams();
+
+  console.log('NOMBRE: PAG MIS ORACIONNES', nombre);
+  console.log('ORACION: PAG MIS ORACIONNES', oracion);
+  console.log('CATEGORIAS: PAG MIS ORACIONNES', categorias);
+  console.log('Mis Oraciones useEffect');
+  console.log(prayers);
+
+  useEffect( () => {
+
+    const getPrayers = async () => {
+      try {
+      const storedPrayers = await AsyncStorage.getItem('prayers');
+      setPrayers(storedPrayers ? JSON.parse(storedPrayers) : []); // Si hay oraciones guardadas, las carga
+      setLoaded(true);
+      return storedPrayers ? JSON.parse(storedPrayers) : [];
+
+      } catch (error) {
+      console.error('Error obteniendo las oraciones:', error);
+      return [];
+      }
+    };
+    
+    getPrayers();
+ 
+    // Unsubscribe from events on unmount
+    
+  }, [prayers]);
+
+  // No advert ready to show yet
+
+  
+
   //const { showAd, loaded  } = InterAd(); // Importa la lógica del anuncio
 
     console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , setPrayers);
@@ -159,33 +206,10 @@ const MisOraciones = () => {
   */
 
 
-  useEffect(() => {
-    const fetchPrayers = async () => {
-      const storedPrayers = await getPrayers();
-      setPrayers(storedPrayers);
-    };
-
-    fetchPrayers();
-  }, [prayers]);
-
-  const getPrayers = async () => {
-    try {
-      const storedPrayers = await AsyncStorage.getItem('prayers');
-
-     // UN OBJETO GUARDA LAS ORACIONES, BUSCAR POR INTENCION,
-      // UNA INTENCION PUEDE TENER VARIAS ORACIONES
-
-    //  console.log('ORACIONES GUARDADAS DE MANEREA LOCAL, ' , storedPrayers);
-    
 
 
 
-      return storedPrayers ? JSON.parse(storedPrayers) : [];
-    } catch (error) {
-      console.error('Error obteniendo las oraciones:', error);
-      return [];
-    }
-  };
+
 // situation, buscar por situacion
 
 const getPrayersBySituation = async (situation) => {
@@ -275,6 +299,18 @@ const deletePrayer = async (prayerId) => {
             showAd();
           }
 
+
+          const goOracioCompleta = (oracion) => {
+              try {
+                    console.log('ORACION COMPLETA', oracion);
+                    router.push({ pathname: "/screens/OracionCompleta", params: { oracion: oracion } });
+                    interstitial.show();
+                
+                } catch (error) {
+                    console.error('Error obteniendo las oraciones:', error);
+                    return [];
+                  }  
+          }
   return (
     
     <View
@@ -300,7 +336,7 @@ const deletePrayer = async (prayerId) => {
           <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black', marginTop: 10 }}>NOMBRE: {item.name}</Text>
           <Text style={{ fontSize: 16, marginTop: 10 }}>SITUACION: {item.situation}</Text>
           <Text
-            onPress={() => router.push({ pathname: "/screens/OracionCompleta", params: { oracion: item.prayer } })}
+            onPress={() => goOracioCompleta(item.prayer)}
          //onPress={adInterGo(item)}
             style={{ fontSize: 16, color: 'blue', fontWeight: 'bold', opacity: 0.8, marginTop: 10, cursor: 'pointer' }}
           >

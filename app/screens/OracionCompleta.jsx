@@ -1,10 +1,19 @@
 import React , {useEffect}  from 'react';
 import { View, Text , StyleSheet, TouchableOpacity, ScrollView, Share} from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-import { InterAd2 } from "../InterAd2.jsx";
+
+
 
 function OracionCompleta() {
-    const { showAd, loaded  } = InterAd2(); // Importa la lógica del anuncio
+
+
+ 
+
+
+
+
+
+
 
 
   const { oracion } = useLocalSearchParams();
@@ -13,7 +22,7 @@ function OracionCompleta() {
 
 
   console.log('ORACION COMPLETA en screen', oracion);
-  console.log(loaded);
+
 
 
   const onShare = async () => {
